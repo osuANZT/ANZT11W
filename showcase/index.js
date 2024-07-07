@@ -78,11 +78,6 @@ socket.onmessage = event => {
         mapBannerEl.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg")`
         mapArtistEl.innerText = data.menu.bm.metadata.artist
         mapSongAndDifficultyEl.innerText = `${data.menu.bm.metadata.title} [${data.menu.bm.metadata.difficulty}]`
-        if (data.menu.mods.str !== "") {
-            mapInfoModsTextEl.innerText = `+${data.menu.mods.str}`
-        }
-        else if (data.resultsScreen.mods.str !== "") mapInfoModsTextEl.innerText = `+${data.resultsScreen.mods.str}`
-        else mapInfoModsTextEl.innerText = `+NM`
         mapInfoMapIdEl.innerText = currentMapId
 
         // Set mappool map stats
@@ -95,6 +90,14 @@ socket.onmessage = event => {
             mapStatsSREl.innerText = Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100
         }
     }
+
+    // Set mod info
+    if (data.menu.mods.str !== "") {
+        mapInfoModsTextEl.innerText = `+${data.menu.mods.str}`
+    }
+    else if (data.resultsScreen.mods.str !== "") mapInfoModsTextEl.innerText = `+${data.resultsScreen.mods.str}`
+    else mapInfoModsTextEl.innerText = `+NM`
+    
 
     // If map not found in mappool
     if (!foundMapInMappool) {
