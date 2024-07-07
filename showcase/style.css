@@ -39,6 +39,7 @@
 #mapStatistics {
     position: absolute; left: 0;
     width: 873px; height: inherit;
+    background: rgb(144,144,144);
 }
 #mapBanner {
     position: absolute; left: 7px; top: 10px;
@@ -97,4 +98,24 @@
 #playerDetailsCombo {
     position: absolute; left: 50%; transform: translateX(-50%);
     bottom: 0;
+}
+
+/* Strain Graph Container */
+/* Strain Graph */
+#strainGraph {
+    position: absolute; left: 1687px;
+    width: 873px; height: inherit;
+    background: rgb(144,144,144);
+}
+.strainGraphDetail {
+    position: absolute; top: 20px;
+}
+#progress {
+	position: absolute; bottom: 0; left: 0;
+	width: 1694px; height: 180px;
+	padding: 0;
+	overflow: hidden;
+	transition: 100ms linear;
+	-webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 49.95%, transparent 50%);
+	mask-image: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 49.95%, transparent 50%);
 }
