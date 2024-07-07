@@ -148,7 +148,7 @@ socket.onmessage = event => {
     if (tempStrains != JSON.stringify(data.menu.pp.strains) && window.strainGraph) {
         tempStrains = JSON.stringify(data.menu.pp.strains)
         if (data.menu.pp.strains) {
-            let temp_strains = smooth(data.menu.pp.strains, 5)
+            let temp_strains = smooth(data.menu.pp.strains, 1)
 			let new_strains = []
 			for (let i = 0; i < 60; i++) {
 				new_strains.push(temp_strains[Math.floor(i * (temp_strains.length / 60))])
