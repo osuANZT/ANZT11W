@@ -13,6 +13,13 @@
     background-size: cover;
 }
 
+/* Logo */
+#logo {
+    position: absolute; left: 50%; top: 9px;
+    transform: translateX(-50%);
+    width: 204px;
+}
+
 /* Showcase title */
 #showcaseTitle {
     position: absolute; left: 50%; top: 129px;
