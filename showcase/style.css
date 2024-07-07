@@ -1,0 +1,23 @@
+/* Import fonts */
+@font-face {
+    font-family: "Office Code Pro";
+    font-weight: 700;
+    src: url("../fonts/OfficeCodePro-Bold.woff2")
+}
+
+/* Whole Page */
+#main {
+    position: absolute; left: 0; top: 0;
+    width: 2560px; height: 1440px;
+    background-image: url("static/background.png");
+    background-size: cover;
+}
+
+/* Showcase title */
+#showcaseTitle {
+    position: absolute; left: 50%; top: 129px;
+    transform: translateX(-50%);
+    font-family: "Office Code Pro";
+    font-weight: 700;
+    font-size: 32px;
+}
