@@ -17,7 +17,15 @@
 #showcaseTitle {
     position: absolute; left: 50%; top: 129px;
     transform: translateX(-50%);
-    font-family: "Office Code Pro";
-    font-weight: 700;
-    font-size: 32px;
+    font-family: "Office Code Pro"; font-weight: 700; font-size: 32px;
+}
+
+/* Sponsored by */
+#sponsoredByText {
+    font-family: "Office Code Pro"; font-weight: 700; font-size: 19px;
+    position: absolute; right: 83px; top: 595px;
+}
+#sponsoredByImage {
+    position: absolute; right: 52px; top: 635px;
+    width: 199px; height: 59px;
 }
