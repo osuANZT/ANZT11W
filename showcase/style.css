@@ -53,7 +53,7 @@
     font-family: "Office Code Pro"; font-weight: 700; font-size: 22px;
     color: white;
 }
-/* Map Stats artist*/
+/* Map Stats Line Text */
 .mapStatLineText {
     width: 675px;
     text-wrap: nowrap;
@@ -70,3 +70,31 @@
 }
 #mapStats > * { margin-right: 54px; }
 #mapInfoIdText { top: 143px; }
+
+/* Player Details Section */
+#playerDetails {
+    position: absolute; left: 873px;
+    width: 814px; height: inherit;
+    background-image: url("static/bottomBackground.png");
+    background-size: cover;
+    font-family: "Solway"; font-weight: 700; font-size: 23px;
+}
+/* Player Details Container */
+#playerDetailsContainer {
+    position: absolute; left: 50%; top: 41px;
+    transform: translateX(-50%);
+    width: 632px; height: 88px;
+    background-color: white;
+}
+/* Player Name */
+.playerDetailsTop { position: absolute; top: 9px;}
+#playerName { left: 15px; }
+#playerScore {
+    left: 50%;
+    transform: translateX(-50%);
+}
+#playerAccuracy { right: 15px; }
+#playerDetailsCombo {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    bottom: 0;
+}
