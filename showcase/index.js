@@ -39,6 +39,14 @@ const playerDetailsComboEl = document.getElementById("playerDetailsCombo")
 const playerDetailsCurrentComboEl = document.getElementById("playerDetailsCurrentCombo")
 const playerDetailsMaxComboEl = document.getElementById("playerDetailsMaxCombo")
 
+// count up animations
+const countUpAnimation = {
+    playerScore: new CountUp("playerScore", 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playerAccuracy: new CountUp("playerAccuracy", 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." , suffix: "%"}),
+    playerDetailsCurrentCombo: new CountUp("playerDetailsCurrentCombo", 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playerDetailsMaxCombo: new CountUp("playerDetailsMaxCombo", 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+}
+
 // IPC State
 let currentState
 
@@ -83,7 +91,20 @@ socket.onmessage = event => {
 
     
     // Check state
-    if (currentState !== data.menu.state) currentState = data.menu.state
+    if (currentState !== data.menu.state) {
+        currentState = data.menu.state
+        if (currentState === 2 || currentState === 7) {
+            playerNameEl.style.opacity = 1
+            playerScoreEl.style.opacity = 1
+            playerAccuracyEl.style.opacity = 1
+            playerDetailsComboEl.style.opacity = 1
+        } else {
+            playerNameEl.style.opacity = 0
+            playerScoreEl.style.opacity = 0
+            playerAccuracyEl.style.opacity = 0
+            playerDetailsComboEl.style.opacity = 0
+        }
+    }
 
     // Conditionals for stat
     // This is specifically for the middle section
@@ -91,31 +112,21 @@ socket.onmessage = event => {
         // Gameplay
         const gameplayScreenInfo = data.gameplay
         playerNameEl.innerText = gameplayScreenInfo.name
-        playerScoreEl.innerText = gameplayScreenInfo.score
-        playerAccuracyEl.innerText = `${Math.round(gameplayScreenInfo.accuracy * 100) / 100}%`
-        playerDetailsCurrentComboEl.innerText = gameplayScreenInfo.combo.current
-        playerDetailsMaxComboEl.innerText = data.menu.bm.stats.maxCombo
-        playerDetailsComboEl.style.display = "block"
+        countUpAnimation.playerScore.update(gameplayScreenInfo.score)
+        countUpAnimation.playerAccuracy.update(gameplayScreenInfo.accuracy)
+        countUpAnimation.playerDetailsCurrentCombo.update(gameplayScreenInfo.combo.current)
+        countUpAnimation.playerDetailsMaxCombo.update(data.menu.bm.stats.maxCombo)
     } else if (currentState === 7) {
         // Results screen
         const resultsScreenInfo = data.resultsScreen
 
         let totalAccuracy = resultsScreenInfo[300] * 100 +resultsScreenInfo[100] * 100 / 3 + resultsScreenInfo[50] * 100 / 6
-        let totalSum = Math.round(totalAccuracy / (resultsScreenInfo[300] + resultsScreenInfo[100] + resultsScreenInfo[50] + resultsScreenInfo[0]) * 100) / 100
+        let totalSum = totalAccuracy / (resultsScreenInfo[300] + resultsScreenInfo[100] + resultsScreenInfo[50] + resultsScreenInfo[0])
         
         playerNameEl.innerText = resultsScreenInfo.name
-        playerScoreEl.innerText = resultsScreenInfo.score
-        playerAccuracyEl.innerText = `${totalSum}%`
-        playerDetailsCurrentComboEl.innerText = resultsScreenInfo.maxCombo
-        playerDetailsMaxComboEl.innerText = data.menu.bm.stats.maxCombo
-        playerDetailsComboEl.style.display = "block"
-    } else {
-        // Everything else
-        playerNameEl.innerText = ""
-        playerScoreEl.innerText = ""
-        playerAccuracyEl.innerText = ""
-        playerDetailsCurrentComboEl.innerText = ""
-        playerDetailsMaxComboEl.innerText = ""
-        playerDetailsComboEl.style.display = "none"
+        countUpAnimation.playerScore.update(resultsScreenInfo.score)
+        countUpAnimation.playerAccuracy.update(totalSum)
+        countUpAnimation.playerDetailsCurrentCombo.update(resultsScreenInfo.maxCombo)
+        countUpAnimation.playerDetailsMaxCombo.update(data.menu.bm.stats.maxCombo)
     }
 }
