@@ -29,3 +29,44 @@
     position: absolute; right: 52px; top: 635px;
     width: 199px; height: 59px;
 }
+
+/* Bottom Area */
+#bottom {
+    position: absolute; bottom: 0;
+    width: inherit; height: 180px;
+}
+/* Map Statistics */
+#mapStatistics {
+    position: absolute; left: 0;
+    width: 873px; height: inherit;
+}
+#mapBanner {
+    position: absolute; left: 7px; top: 10px;
+    border: 1px solid #000000;
+    width: 160px; height: 160px;
+    background-image: url("https://assets.ppy.sh/beatmaps/2095154/covers/cover.jpg");
+    background-size: cover;
+    background-position: center;
+}
+/* Map Stats Text */
+.mapInfoText {
+    font-family: "Office Code Pro"; font-weight: 700; font-size: 22px;
+    color: white;
+}
+/* Map Stats artist*/
+.mapStatLineText {
+    width: 675px;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mapInfoLeftAlign { position: absolute; left: 179px;}
+#mapArtist { top: 10px; }
+#mapSongAndDifficulty { top: 37px; }
+#mapInfoMods { top: 64px; }
+#mapStats { 
+    top: 91px;
+    display: flex;
+}
+#mapStats > * { margin-right: 54px; }
+#mapInfoIdText { top: 143px; }
