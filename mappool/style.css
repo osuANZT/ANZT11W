@@ -1,7 +1,16 @@
 :root {
+    --redPlayerColour: rgb(197, 19, 19);
+    --bluePlayerColour: rgb(24, 82, 196);
+
     --profilePictureWidthHeight: 75px;
     --profilePictureLeftRight: 227px;
     --starsContainerLeftRight: 292px;
+}
+
+@font-face {
+    font-family: "Mestiza";
+    font-weight: 500;
+    src: url("../fonts/Mestiza-Medium.otf")
 }
 
 /* Whole Page */
@@ -32,3 +41,14 @@
     flex-direction: row-reverse;
 }
 .starsContainer > * { margin: 0 11px; }
+
+/* Round Name */
+#roundName {
+    position: absolute; left: 50%; top: 182px;
+    transform: translateX(-50%);
+    width: 86px; height: 30px;
+    border: 1px solid black;
+    font-family: "Mestiza"; font-weight: 500; font-size: 24px;
+    text-align: center;
+    line-height: 29px;
+}
