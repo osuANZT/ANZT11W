@@ -6,12 +6,36 @@
     --profilePictureLeftRight: 227px;
     --playerNameLeftRight: 317px;
     --starsContainerLeftRight: 292px;
+    --mapPanelDetailsLeft: 127px;
 }
 
+@font-face {
+    font-family: "Aller";
+    font-weight: 700;
+    src: url("../fonts/Aller-Bold.ttf")
+}
+@font-face {
+    font-family: "Afacad";
+    src: url("../fonts/Afacad.ttf")
+}
+@font-face {
+    font-family: "Calibri";
+    src: url("../fonts/Calibri.ttf")
+}
 @font-face {
     font-family: "Mestiza";
     font-weight: 500;
     src: url("../fonts/Mestiza-Medium.otf")
+}
+@font-face {
+    font-family: "Mestiza";
+    font-weight: 700;
+    src: url("../fonts/Mestiza-Bold.otf")
+}
+@font-face {
+    font-family: "Solway";
+    font-weight: 700;
+    src: url("../fonts/Solway-Bold.ttf")
 }
 
 /* Whole Page */
@@ -74,4 +98,63 @@
     font-family: "Mestiza"; font-weight: 500; font-size: 24px;
     text-align: center;
     line-height: 29px;
+}
+
+/* Panels */
+#allPanelsContainer { 
+    position: absolute; left: 218px; top: 244px; 
+    display: flex;
+}
+/* Panel Containers */
+.modPanel {
+    display: flex;
+    flex-direction: column;
+    margin-right: 41px;
+}
+/* Panels */
+.modPanel > * { margin-bottom: 13px; }
+#DTTBPanels {
+    display: flex;
+    flex-direction: column;
+}
+/* Panel Information */
+.panel { 
+    position: relative;
+    height: 129px;
+}
+/* Map Background Image */
+.mapBackgroundImage {
+    position: absolute; left: 7px; top: 50%; 
+    transform: translateY(-50%);
+    width: 114px; height: 114px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://assets.ppy.sh/beatmaps/1927978/covers/cover.jpg")
+} 
+/* Map Title and Song Name */
+.mapArtistAndTitle {
+    position: absolute; left: var(--mapPanelDetailsLeft); top: 0;
+    font-family: "Mestiza"; font-size: 22px;
+}
+.mapArtist { font-weight: 500; }
+.mapTitle { font-weight: 700; }
+/* Map Difficulty */
+.mapDifficulty {
+    position: absolute; left: var(--mapPanelDetailsLeft); top: 31.2px;
+    font-family: "Afacad"; font-weight: 400; font-size: 19px;
+}
+/* CS AR OD Stats */
+.CSARODStats {
+    position: absolute; left: var(--mapPanelDetailsLeft);  top: 56.8px;
+    font-family: "Solway"; font-weight: 700; font-size: 17px;
+}   
+.SRBPMLENStats {
+    position: absolute; left: var(--mapPanelDetailsLeft); top: 78.8px;
+    font-family: "Aller"; font-weight: 700; font-size: 16px;
+}
+.stats { margin-right: 20px; }
+/* Map Mapper */
+.mapMapper {
+    position: absolute; right: 10px; bottom: 5px;
+    font-family: "Calibri"; font-weight: 700; font-size: 20px;
 }
