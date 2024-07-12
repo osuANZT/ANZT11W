@@ -1,3 +1,9 @@
+:root {
+    --profilePictureWidthHeight: 75px;
+    --profilePictureLeftRight: 227px;
+    --starsContainerLeftRight: 292px;
+}
+
 /* Whole Page */
 #main {
     position: absolute; left: 0; top: 0;
@@ -8,9 +14,21 @@
 /* Profile Pictures */
 .profilePicture {
     position: absolute; top: 96px;
-    width: 75px; height: 75px;
+    width: var(--profilePictureWidthHeight); height: var(--profilePictureWidthHeight);
     border: 1px solid black;
     border-radius: 2px;
 }
-#redProfilePicture { left: 227px; }
-#blueProfilePicture { right: 226px; }
+#redProfilePicture { left: var(--profilePictureLeftRight); }
+#blueProfilePicture { right: var(--profilePictureLeftRight); }
+
+/* Stars */
+.starsContainer {
+    position: absolute; top: 129px;
+    display: flex;
+}
+#redStarsContainer { left: var(--starsContainerLeftRight); }
+#blueStarsContainer { 
+    right: var(--starsContainerLeftRight); 
+    flex-direction: row-reverse;
+}
+.starsContainer > * { margin: 0 11px; }
