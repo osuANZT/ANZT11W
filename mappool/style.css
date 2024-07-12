@@ -1,5 +1,16 @@
+/* Whole Page */
 #main {
     position: absolute; left: 0; top: 0;
     width: 2560px; height: 1440px;
     background-image: url("static/background.png")
 }
+
+/* Profile Pictures */
+.profilePicture {
+    position: absolute; top: 96px;
+    width: 75px; height: 75px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+#redProfilePicture { left: 227px; }
+#blueProfilePicture { right: 226px; }
