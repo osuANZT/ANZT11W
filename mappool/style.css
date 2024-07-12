@@ -4,6 +4,7 @@
 
     --profilePictureWidthHeight: 75px;
     --profilePictureLeftRight: 227px;
+    --playerNameLeftRight: 317px;
     --starsContainerLeftRight: 292px;
 }
 
@@ -29,6 +30,28 @@
 }
 #redProfilePicture { left: var(--profilePictureLeftRight); }
 #blueProfilePicture { right: var(--profilePictureLeftRight); }
+
+/* Names */
+.playerName {
+    position: absolute; top: 103px;
+    color: white;
+    height: 35px;
+    padding: 0 8px;
+    outline: 2px solid white;
+    outline-offset: -3px;
+    border: 2px solid black;
+    font-family: "Mestiza"; font-weight: 500; font-size: 20px;
+    box-sizing: border-box;
+    line-height: 29px;
+}
+#redPlayerName {
+    left: var(--playerNameLeftRight); 
+    background-color: var(--redPlayerColour);
+}
+#bluePlayerName {
+    right: var(--playerNameLeftRight); 
+    background-color: var(--bluePlayerColour);
+}
 
 /* Stars */
 .starsContainer {
