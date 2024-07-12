@@ -7,6 +7,8 @@
     --playerNameLeftRight: 317px;
     --starsContainerLeftRight: 292px;
     --mapPanelDetailsLeft: 127px;
+    --matchHistoryPanelWidth: 173.79px;
+    --matchHistoryPanelHeight: 270px;
 }
 
 @font-face {
@@ -31,6 +33,11 @@
     font-family: "Mestiza";
     font-weight: 700;
     src: url("../fonts/Mestiza-Bold.otf")
+}
+@font-face {
+    font-family: "Office Code Pro";
+    font-weight: 700;
+    src: url("../fonts/OfficeCodePro-Bold.otf")
 }
 @font-face {
     font-family: "Solway";
@@ -158,3 +165,60 @@
     position: absolute; right: 10px; bottom: 5px;
     font-family: "Calibri"; font-weight: 700; font-size: 20px;
 }
+
+/* Match History */
+#matchHistoryTimelineContainer {
+    position: absolute; left: 760px; top: 805px;
+    border: 4px double black;
+    border-radius: 4px;
+    width: 1036px; height: 270px;
+    overflow: hidden;
+}
+#matchHistoryTimeline {
+    width: 1216.53px;
+    display: flex;
+    transform: translateX(calc(-100% + 1216.53px))
+}
+#matchHistoryTimelineBottom {
+    position: absolute; left: 772px; top: 1082px;
+    font-family: "Office Code Pro"; font-weight: 700; font-size: 20.4px;
+}
+.matchHistoryPanel {
+    position: relative;
+    width: var(--matchHistoryPanelWidth); height: 270px;
+}
+.matchHistoryPanelImage { width: var(--matchHistoryPanelWidth); height: 270px; }
+.matchHistoryPanelBackgroundImage {
+    position: absolute; left: 2px; top: 2px;
+    width: calc(var(--matchHistoryPanelWidth) - 4px);
+    height: calc(var(--matchHistoryPanelHeight) - 4px);
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://assets.ppy.sh/beatmaps/1927978/covers/cover.jpg")
+}
+.matchHistoryPanelPickedBackground {
+    position: absolute; left: 2px; top: 2px;
+    width: calc(var(--matchHistoryPanelWidth) - 4px);
+    height: calc(var(--matchHistoryPanelHeight) - 4px);
+    background: rgb(255, 255, 255, 0.5);
+}
+.matchHistoryPanelMod {
+    position: absolute; left: 50%; top: 6px;
+    transform: translateX(-50%);
+}
+.matchHistoryPanelScore {
+    position: absolute; left: 50%; 
+    width: 120px; height: 30px;
+    transform: translateX(-50%);
+    outline: 2px solid black;
+    outline-offset: -4px;
+    border: 2px solid white;
+    font-family: "Solway"; font-weight: 700; font-size: 20px;
+    text-align: center;
+    color: white;
+    line-height: 30px;
+}
+.matchHistoryPanelWinnerScore { top: 180px; }
+.matchHistoryPanelLoserScore { top: 220px; }
+.matchHistoryPanelRedScore { background-color: var(--redPlayerColour); }
+.matchHistoryPanelBlueScore { background-color: var(--bluePlayerColour); }
