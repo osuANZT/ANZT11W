@@ -252,12 +252,12 @@ h1 {
     font-family: "Mestiza"; font-weight: 500; font-size: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 15px;
+    margin-left: 25px;
 }
 /* Side bar button */
 .sideBarButton { 
     font-family: "Mestiza"; font-weight: 500; font-size: 20px;
-    width: 130px; height: 50px; 
+    width: 125px; height: 50px; 
     border-radius: 10px;
     background-color: transparent;
 }
@@ -266,20 +266,20 @@ h1 {
     background-color: black;
 }
 /* Next Autopicker */
-#nextautoPicker {
+#nextAutoPicker {
     font-family: "Mestiza"; font-weight: 500; font-size: 40px;
-    margin-left: 15px;
+    margin-left: 25px;
 }
 #nextAutoPickerSectionButtons {
-    width: 270px;
+    width: 260px;
     margin-top: 15px;
-    margin-left: 15px;
+    margin-left: 25px;
     display: flex;
     justify-content: space-between;
 }
 /* Full Size Button  */
 .fullSizeButton {
     margin-top: 15px;
-    margin-left: 15px;
-    width: 270px;
+    margin-left: 25px;
+    width: 260px;
 }
