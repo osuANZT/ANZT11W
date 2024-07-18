@@ -166,6 +166,9 @@ const redStarsContainerEl = document.getElementById("redStarsContainer")
 const blueStarsContainerEl = document.getElementById("blueStarsContainer")
 let currentBestOf = 0, currentFirstTo = 0, currentRedStarsCount = 0, currentBlueStarsCount = 0
 
+// Beatmap information
+let currentBeatmapId, currentBeatmapMd5
+
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
     console.log(data)
@@ -222,6 +225,34 @@ socket.onmessage = event => {
         for (i; i < currentBlueStarsCount; i++) blueStarsContainerEl.append(createStar("scorePoint"))
         for (i; i < currentFirstTo; i++) blueStarsContainerEl.append(createStar("scoreBlank"))
     }
+
+    // beatmap changes for autopicking
+    if (currentBeatmapId !== data.menu.bm.id || currentBeatmapMd5 !== data.menu.bm.md5 && allBeatmaps) {
+        currentBeatmapId = data.menu.bm.id
+        currentBeatmapMd5 = data.menu.bm.md5
+        
+        if (autoPickerOn) {
+            // Find button to click on
+            let element = document.querySelector(`[data-id="${currentBeatmapId}"]`)
+
+            // Check if autopicked already
+            if (!element.hasAttribute("data-is-autopicked") || element.getAttribute("data-is-autopicked") !== "true") {
+                if (nextAutoPicker === "Red") {
+                    element.click()
+                    element.setAttribute("data-is-autopicked", "true")
+                } else if (nextAutoPicker === "Blue") {
+                    const event = new MouseEvent('mousedown', {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window,
+                        button: 2
+                    })
+                    element.dispatchEvent(event)
+                    element.setAttribute("data-is-autopicked", "true")
+                }
+            }
+        }
+    }
 }
 
 // Map Click Event
@@ -263,6 +294,7 @@ function mapClickEvent() {
 
         // Set dataset action
         this.dataset.action = "ban"
+        this.removeAttribute("data-is-autopicked")
     } else if (action === "reset") {
         if (currentPickTile === this) currentPickTile = previousPickTile
 
@@ -273,5 +305,41 @@ function mapClickEvent() {
         this.children[9].style.opacity = 0
 
         this.removeAttribute("data-action")
+        this.removeAttribute("data-is-autopicked")
+    }
+}
+
+// Set next auto picker
+const nextAutoPickerEl = document.getElementById("nextAutoPicker")
+let nextAutoPicker
+function setNextAutoPicker(colour) {
+    nextAutoPickerEl.innerText = colour
+    nextAutoPicker = colour
+}
+
+// Toggle Auto picker
+const toggleAutoPickButtonEl = document.getElementById("toggleAutoPickButton")
+let autoPickerOn = false
+function toggleAutoPick() {
+    autoPickerOn = !autoPickerOn
+    if (!autoPickerOn) {
+        toggleAutoPickButtonEl.innerText = "Toggle Auto Pick: OFF"
+    } else {
+        toggleAutoPickButtonEl.innerText = "Toggle Auto Pick: ON"
+    }
+}
+
+// Reset All Maps
+function resetAllMaps() {
+    for (let i = 0; i < allBeatmaps.length; i++) {
+        const element = document.querySelector(`[data-id="${allBeatmaps[i].beatmapID}"]`)
+        const event = new MouseEvent('mousedown', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+            button: 0,
+            shiftKey: true
+        })
+        element.dispatchEvent(event)
     }
 }

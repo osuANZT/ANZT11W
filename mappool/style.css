@@ -241,3 +241,45 @@
 .matchHistoryPanelLoserScore { top: 220px; }
 .matchHistoryPanelRedScore { background-color: var(--redPlayerColour); }
 .matchHistoryPanelBlueScore { background-color: var(--bluePlayerColour); }
+
+/* Side Bar */
+#sideBar {
+    position: absolute; left: 2560px; top: 0;
+    width: 300px; height: 1440px;
+    background-color: white;
+}
+h1 {
+    font-family: "Mestiza"; font-weight: 500; font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+}
+/* Side bar button */
+.sideBarButton { 
+    font-family: "Mestiza"; font-weight: 500; font-size: 20px;
+    width: 130px; height: 50px; 
+    border-radius: 10px;
+    background-color: transparent;
+}
+.sideBarButton:active {
+    color: white;
+    background-color: black;
+}
+/* Next Autopicker */
+#nextautoPicker {
+    font-family: "Mestiza"; font-weight: 500; font-size: 40px;
+    margin-left: 15px;
+}
+#nextAutoPickerSectionButtons {
+    width: 270px;
+    margin-top: 15px;
+    margin-left: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+/* Full Size Button  */
+.fullSizeButton {
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 270px;
+}

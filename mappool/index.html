@@ -52,6 +52,20 @@
         <div id="matchHistoryTimelineBottom">oldest --------------------------------------------------------------------- newest</div>
     </div>
 
+    <!-- Side Bar -->
+    <div id="sideBar">
+        <section id="nextAutoPickerSection">
+            <h1>Next Picker: </h1>
+            <div id="nextautoPicker">Red</div>
+            <section id="nextAutoPickerSectionButtons">
+                <button class="sideBarButton" onclick="setNextAutoPicker('Red')">Red</button>
+                <button class="sideBarButton" onclick="setNextAutoPicker('Blue')">Blue</button>
+            </section>
+            <button class="sideBarButton fullSizeButton" onclick="toggleAutoPick()" id="toggleAutoPickButton">Toggle Auto Pick: OFF</button>
+            <button class="sideBarButton fullSizeButton" onclick="resetAllMaps()" id="resetAllMapsButton">Reset All Maps</button>
+        </section>
+    </div>
+
     <script src="index.js"></script>
 </body>
 </html>
