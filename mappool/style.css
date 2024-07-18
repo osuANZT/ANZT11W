@@ -58,6 +58,8 @@
     width: var(--profilePictureWidthHeight); height: var(--profilePictureWidthHeight);
     border: 1px solid black;
     border-radius: 2px;
+    background-size: cover;
+    background-position: center;
 }
 #redProfilePicture { left: var(--profilePictureLeftRight); }
 #blueProfilePicture { right: var(--profilePictureLeftRight); }

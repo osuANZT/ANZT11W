@@ -2,6 +2,7 @@
 const roundNameEl = document.getElementById("roundName")
 let allBeatmaps
 
+// Get mappool
 async function getMappool() {
     const response = await fetch("../_data/beatmaps.json")
     const responseJson = await response.json()
@@ -11,8 +12,20 @@ async function getMappool() {
     // Set beatmaps
     allBeatmaps = responseJson.beatmaps
 }
-
 getMappool()
+
+// Get players
+let allPlayers
+async function getPlayers() {
+    const response = await fetch("../_data/players.json")
+    const responseJson = await response.json()
+    allPlayers = responseJson
+}
+getPlayers()
+
+// Get players from player name
+const getPlayersFromName = playerName => allPlayers.find(player => player.playerName === playerName)
+
 
 // Socket Events
 // Credits: VictimCrasher - https://github.com/VictimCrasher/static/tree/master/WaveTournament
@@ -35,12 +48,24 @@ socket.onmessage = event => {
     console.log(data)
 
     // Set player names and profile pictures
-    if (currentRedPlayerName !== data.tourney.manager.teamName.left) {
+    if (currentRedPlayerName !== data.tourney.manager.teamName.left && allPlayers) {
         currentRedPlayerName = data.tourney.manager.teamName.left
         redPlayerNameEl.innerText = currentRedPlayerName
+
+        let playerDetails = getPlayersFromName(currentRedPlayerName)
+        if (playerDetails) {
+            currentRedPlayerId = playerDetails.playerId
+            redProfilePictureEl.style.backgroundImage = `url("https://a.ppy.sh/${currentRedPlayerId}")`
+        }
     }
-    if (currentBluePlayerName !== data.tourney.manager.teamName.right) {
+    if (currentBluePlayerName !== data.tourney.manager.teamName.right && allPlayers) {
         currentBluePlayerName = data.tourney.manager.teamName.right
         bluePlayerNameEl.innerText = currentBluePlayerName
+
+        let playerDetails = getPlayersFromName(currentBluePlayerName)
+        if (playerDetails) {
+            currentBluePlayerId = playerDetails.playerId
+            blueProfilePictureEl.style.backgroundImage = `url("https://a.ppy.sh/${currentBluePlayerId}")`
+        }
     }
 }
