@@ -136,6 +136,9 @@ async function getMappool() {
 
 getMappool()
 
+// Find maps in mappool
+const findMapInMapool = beatmapID => allBeatmaps.find(beatmap => beatmap.beatmapID === beatmapID)
+
 // Get players
 let allPlayers
 async function getPlayers() {
@@ -176,6 +179,12 @@ let currentBeatmapId, currentBeatmapMd5
 // IPC State
 let checkedForWinner = false
 let currentIPCState
+
+// Match history stuff
+const matchHistoryTimelineEl = document.getElementById("matchHistoryTimeline")
+let previousMPLink
+let currentMPLink
+let numberOfMapsCounted = 0
 
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -283,6 +292,86 @@ socket.onmessage = event => {
                 currentPickTile.children[10].setAttribute("src", "static/players/blueWon.png")
             }
         }
+
+        // Get MP Link
+        if (previousMPLink !== currentMPLink) {
+            matchHistoryTimelineEl.innerHTML = ""
+            numberOfMapsCounted = 0
+        }
+
+        async function getAndAppendMatchHistory() {
+            const response = await fetch(`https://osu.ppy.sh/api/get_match?k=${getAPIKey()}&mp=${currentMPLink}`)
+            const responseJson = await response.json()
+
+            for (let i = numberOfMapsCounted; i < responseJson.games.length; i++) {
+                const currentMap = findMapInMapool(parseInt(responseJson.games[i].beatmap_id))
+                if (currentMap) {
+                    const fragment = document.createDocumentFragment()
+                    // Create elements
+                    // Panel
+                    const matchHistoryPanel = document.createElement("div")
+                    matchHistoryPanel.classList.add("matchHistoryPanel")
+                    fragment.append(matchHistoryPanel)
+
+                    // Panel Image
+                    const matchHistoryPanelImage = document.createElement("img")
+                    matchHistoryPanelImage.classList.add("matchHistoryPanelImage")
+                    matchHistoryPanelImage.setAttribute("src", "static/panels/MatchHistoryPanel.png")
+                    fragment.append(matchHistoryPanelImage)
+
+                    // Background Image
+                    const matchHistoryPanelBackgroundImage = document.createElement("div")
+                    matchHistoryPanelBackgroundImage.classList.add("matchHistoryPanelBackgroundImage")
+                    matchHistoryPanelBackgroundImage.style.backgroundImage = `url("${currentMap.imgURL}")`
+                    fragment.append(matchHistoryPanelBackgroundImage)
+
+                    // Picked Overlay
+                    const matchHistoryPanelPickedBackground = document.createElement("div")
+                    matchHistoryPanelPickedBackground.classList.add("matchHistoryPanelPickedBackground")
+                    fragment.append(matchHistoryPanelBackgroundImage)
+
+                    // Mod
+                    const matchHistoryPanelMod = document.createElement("img")
+                    matchHistoryPanelMod.classList.add("matchHistoryPanelMod")
+                    matchHistoryPanelMod.setAttribute("src", `static/match-history/${currentMap.mod}${currentMap.order}.png`)
+                    fragment.append(matchHistoryPanelMod)
+
+                    // Get scores
+                    let scoreObjects = []
+                    for (let j = 0; j < responseJson.games[i].scores.length; j++) {
+                        const currentScoreObject = responseJson.games[i].scores[j]
+                        scoreObjects[j] = {
+                            "player": parseInt(currentScoreObject.user_id),
+                            "score": parseInt(currentScoreObject.score)
+                        }
+                    }
+
+                    // Sort scores
+                    scoreObjects.sort((a, b) => b.score - a.score)
+
+                    // Create 1st score object
+                    function createScoreElement(index) {
+                        const scoreElement = document.createElement("div")
+                        scoreElement.classList.add("matchHistoryPanelScore")
+                        if (index === 0) scoreElement.classList.add("matchHistoryPanelWinnerScore")
+                        else scoreElement.classList.add("matchHistoryPanelLoserScore")
+                        if (scoreObjects[index].player === currentRedPlayerId) scoreElement.classList.add("matchHistoryPanelRedScore")
+                        else scoreElement.classList.add("matchHistoryPanelBlueScore")
+                        scoreElement.innerText = scoreObjects[index].score
+                        fragment.append(scoreElement)
+                    }
+
+                    createScoreElement(0)
+                    createScoreElement(1)
+
+                    matchHistoryTimelineEl.append(fragment)
+                }
+            }
+        }
+
+        getAndAppendMatchHistory()
+
+        previousMPLink = currentMPLink
     }
 }
 
@@ -337,7 +426,6 @@ function mapClickEvent() {
         this.children[9].style.opacity = 0
         this.children[10].setAttribute("src", ``)
         this.children[10].style.opacity = 0
-
 
         this.removeAttribute("data-action")
         this.removeAttribute("data-is-autopicked")
