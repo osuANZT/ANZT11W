@@ -145,6 +145,10 @@
 .mapArtistAndTitle {
     position: absolute; left: var(--mapPanelDetailsLeft); top: 0;
     font-family: "Mestiza"; font-size: 22px;
+    width: 372px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .mapArtist { font-weight: 500; }
 .mapTitle { font-weight: 700; }

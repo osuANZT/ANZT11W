@@ -1,6 +1,17 @@
 // Round Name
 const roundNameEl = document.getElementById("roundName")
+
+// Beatmap information
+const NMPanelsEl = document.getElementById("NMPanels")
+const HDPanelsEl = document.getElementById("HDPanels")
+const HRPanelsEl = document.getElementById("HRPanels")
+const DTPanelsEl = document.getElementById("DTPanels")
+const TBPanelsEl = document.getElementById("TBPanels")
 let allBeatmaps
+
+// Match history panel
+const matchHistoryTimelineContainerEl = document.getElementById("matchHistoryTimelineContainer")
+const matchHistoryTimelineBottomEl = document.getElementById("matchHistoryTimelineBottom")
 
 // Get mappool
 async function getMappool() {
@@ -11,7 +22,96 @@ async function getMappool() {
     roundNameEl.innerText = responseJson.roundName.toUpperCase()
     // Set beatmaps
     allBeatmaps = responseJson.beatmaps
+
+    // Load in the mappool
+    for (let i = 0; i < allBeatmaps.length; i++) {
+        const currentMap = allBeatmaps[i]
+
+        const panel = document.createElement("div")
+        panel.classList.add("panel")
+
+        // Image
+        const panelImage = document.createElement("img")
+        panelImage.setAttribute("src", `static/panels/${currentMap.mod}panel.png`)
+
+        // Map background Image
+        const mapBackgroundImage = document.createElement("div")
+        mapBackgroundImage.classList.add("mapBackgroundImage")
+        mapBackgroundImage.style.backgroundImage = `url("${currentMap.imgURL}")`
+
+        // Map Artist and Title
+        const mapArtistAndTitle = document.createElement("div")
+        mapArtistAndTitle.classList.add("mapArtistAndTitle")
+        const mapArtist = document.createElement("span")
+        mapArtist.classList.add("mapArtist")
+        mapArtist.innerText = currentMap.artist
+        const mapTitle = document.createElement("span")
+        mapTitle.classList.add("mapTitle")
+        mapTitle.innerText = currentMap.songName
+        mapArtistAndTitle.append(mapArtist," - ",mapTitle)
+
+        // Map difficulty
+        const mapDifficulty = document.createElement("div")
+        mapDifficulty.classList.add("mapDifficulty")
+        mapDifficulty.innerText = `[${currentMap.difficultyname}]`
+
+        // CS AR OD
+        const CSARODStats = document.createElement("div")
+        CSARODStats.classList.add("CSARODStats")
+        // CS
+        const csStats = document.createElement("span")
+        csStats.classList.add("stats")
+        csStats.innerText = Math.round(parseFloat(currentMap.cs) * 10) / 10
+        // AR
+        const arStats = document.createElement("span")
+        arStats.classList.add("stats")
+        arStats.innerText = Math.round(parseFloat(currentMap.ar) * 10) / 10
+        // OD
+        const odStats = document.createElement("span")
+        odStats.classList.add("stats")
+        odStats.innerText = Math.round(parseFloat(currentMap.od) * 10) / 10
+        CSARODStats.append("cs: ", csStats, " ar: ", arStats, " od: ", odStats)
+
+        // SR BPM LEN
+        const SRBPMLENStats = document.createElement("div")
+        SRBPMLENStats.classList.add("SRBPMLENStats")
+        // SR
+        const srStats = document.createElement("span")
+        srStats.classList.add("stats")
+        srStats.innerText = `${Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100}*`
+        // BPM
+        const bpmStats = document.createElement("span")
+        bpmStats.classList.add("stats")
+        bpmStats.innerText = `${Math.round(currentMap.bpm)}bpm`
+        // LEN
+        const lenStats = document.createElement("span")
+        lenStats.classList.add("stats")
+        let totalSeconds = currentMap.songLength
+        const minutes = Math.floor(totalSeconds / 60)
+        const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0')
+        lenStats.innerText = `${minutes}:${seconds}`
+        SRBPMLENStats.append(srStats, bpmStats, lenStats)
+
+        // Mapper
+        const mapMapper = document.createElement("div")
+        mapMapper.classList.add("mapMapper")
+        mapMapper.innerText = currentMap.mapper
+
+        // Append everything
+        panel.append(panelImage, mapBackgroundImage, mapArtistAndTitle, mapDifficulty, CSARODStats, SRBPMLENStats, mapMapper)
+        switch (currentMap.mod) {
+            case "NM": NMPanelsEl.append(panel); break;
+            case "HD": HDPanelsEl.append(panel); break;
+            case "HR": HRPanelsEl.append(panel); break;
+            case "DT": DTPanelsEl.append(panel); break;
+            case "TB": TBPanelsEl.append(panel); break;
+        }
+    }
+
+    matchHistoryTimelineContainerEl.style.top = `${HDPanelsEl.childElementCount * 139 + 246}px`
+    matchHistoryTimelineBottomEl.style.top = `${HDPanelsEl.childElementCount * 139 + 527}px`
 }
+
 getMappool()
 
 // Get players
