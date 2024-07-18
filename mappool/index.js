@@ -29,6 +29,9 @@ async function getMappool() {
 
         const panel = document.createElement("div")
         panel.classList.add("panel")
+        panel.addEventListener("mousedown", mapClickEvent)
+        panel.addEventListener("contextmenu", function(event) {event.preventDefault()})
+        panel.dataset.id = currentMap.beatmapID
 
         // Image
         const panelImage = document.createElement("img")
@@ -97,8 +100,23 @@ async function getMappool() {
         mapMapper.classList.add("mapMapper")
         mapMapper.innerText = currentMap.mapper
 
+        // Banned panel
+        const bannedPanel = document.createElement("img")
+        bannedPanel.classList.add("bannedPanel")
+        bannedPanel.setAttribute("src", "static/panels/BANNEDpanel.png")
+
+        // Played panel
+        const playedPanel = document.createElement("img")
+        playedPanel.classList.add("playedPanel")
+        playedPanel.setAttribute("src", "static/panels/PLAYEDpanel.png")
+
+        // Action image
+        const actionImage = document.createElement("img")
+        actionImage.classList.add("actionImage")
+
         // Append everything
-        panel.append(panelImage, mapBackgroundImage, mapArtistAndTitle, mapDifficulty, CSARODStats, SRBPMLENStats, mapMapper)
+        panel.append(panelImage, mapBackgroundImage, mapArtistAndTitle, mapDifficulty, CSARODStats, SRBPMLENStats, 
+            mapMapper, bannedPanel, playedPanel, actionImage)
         switch (currentMap.mod) {
             case "NM": NMPanelsEl.append(panel); break;
             case "HD": HDPanelsEl.append(panel); break;
@@ -197,19 +215,63 @@ socket.onmessage = event => {
 
         // Red stars
         let i = 0
-        for (i; i < currentRedStarsCount; i++) {
-            redStarsContainerEl.append(createStar("scorePoint"))
-        }
-        for (i; i < currentFirstTo; i++) {
-            redStarsContainerEl.append(createStar("scoreBlank"))
-        }
+        for (i; i < currentRedStarsCount; i++) redStarsContainerEl.append(createStar("scorePoint"))
+        for (i; i < currentFirstTo; i++) redStarsContainerEl.append(createStar("scoreBlank"))
         // Blue stars
         i = 0
-        for (i; i < currentBlueStarsCount; i++) {
-            blueStarsContainerEl.append(createStar("scorePoint"))
-        }
-        for (i; i < currentFirstTo; i++) {
-            blueStarsContainerEl.append(createStar("scoreBlank"))
-        }
+        for (i; i < currentBlueStarsCount; i++) blueStarsContainerEl.append(createStar("scorePoint"))
+        for (i; i < currentFirstTo; i++) blueStarsContainerEl.append(createStar("scoreBlank"))
+    }
+}
+
+// Map Click Event
+let previousPickTile
+let currentPickTile
+function mapClickEvent() {
+    // Team
+    let team
+    if (event.button === 0) team = "red"
+    else if (event.button === 2) team = "blue"
+    if (!team) return
+
+    // Action
+    let action = "pick"
+    if (event.ctrlKey) action = "ban"
+    if (event.shiftKey) action = "reset"
+
+
+    if (action === "pick") {
+        this.children[7].style.opacity = 0
+        this.children[8].style.opacity = 1
+
+        // Set picker
+        this.children[9].setAttribute("src", `static/players/${team}Pick.png`)
+        this.children[9].style.opacity = 1
+
+        // Set dataset action
+        this.dataset.action = "pick"
+
+        previousPickTile = currentPickTile
+        currentPickTile = this
+    } else if (action === "ban") {
+        this.children[7].style.opacity = 1
+        this.children[8].style.opacity = 0
+
+        // Set ban
+        this.children[9].setAttribute("src", `static/players/${team}Ban.png`)
+        this.children[9].style.opacity = 1
+
+        // Set dataset action
+        this.dataset.action = "ban"
+    } else if (action === "reset") {
+        if (currentPickTile === this) currentPickTile = previousPickTile
+
+        this.children[7].style.opacity = 0
+        this.children[8].style.opacity = 0
+
+        this.children[9].setAttribute("src", ``)
+        this.children[9].style.opacity = 0
+
+        this.removeAttribute("data-action")
     }
 }

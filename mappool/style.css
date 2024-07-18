@@ -172,6 +172,18 @@
     position: absolute; right: 10px; bottom: 5px;
     font-family: "Calibri"; font-weight: 700; font-size: 20px;
 }
+/* Banned Panel */
+.bannedPanel, .playedPanel {
+    position: absolute; left: 2px; top: 2px;
+    transition: 500ms ease-in-out;
+    opacity: 0;
+}
+/* Action Image */
+.actionImage {
+    position: absolute; left: 19px; top: 15px;
+    transition: 500ms ease-in-out;
+    opacity: 0;
+}
 
 /* Match History */
 #matchHistoryTimelineContainer {
