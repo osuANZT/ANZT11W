@@ -5,7 +5,7 @@
     --profilePictureWidthHeight: 75px;
     --profilePictureLeftRight: 227px;
     --playerNameLeftRight: 317px;
-    --starsContainerLeftRight: 292px;
+    --starsContainerLeftRight: 302px;
     --mapPanelDetailsLeft: 127px;
     --matchHistoryPanelWidth: 173.79px;
     --matchHistoryPanelHeight: 270px;
@@ -96,7 +96,8 @@
     right: var(--starsContainerLeftRight); 
     flex-direction: row-reverse;
 }
-.starsContainer > * { margin: 0 11px; }
+#redStarsContainer > * { margin-right: -21px; }
+#blueStarsContainer > * { margin-left: -21px; }
 
 /* Round Name */
 #roundName {

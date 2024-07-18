@@ -43,6 +43,11 @@ const bluePlayerNameEl = document.getElementById("bluePlayerName")
 let currentRedPlayerName, currentBluePlayerName
 let currentRedPlayerId, currentBluePlayerId
 
+// Star logic
+const redStarsContainerEl = document.getElementById("redStarsContainer")
+const blueStarsContainerEl = document.getElementById("blueStarsContainer")
+let currentBestOf = 0, currentFirstTo = 0, currentRedStarsCount = 0, currentBlueStarsCount = 0
+
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
     console.log(data)
@@ -66,6 +71,45 @@ socket.onmessage = event => {
         if (playerDetails) {
             currentBluePlayerId = playerDetails.playerId
             blueProfilePictureEl.style.backgroundImage = `url("https://a.ppy.sh/${currentBluePlayerId}")`
+        }
+    }
+
+    // Star container
+    if (currentBestOf !== data.tourney.manager.bestOF ||
+        currentRedStarsCount !== data.tourney.manager.stars.left ||
+        currentBlueStarsCount !== data.tourney.manager.stars.right
+    ) {
+        currentBestOf = data.tourney.manager.bestOF
+        currentFirstTo = Math.ceil(currentBestOf / 2)
+        currentRedStarsCount = data.tourney.manager.stars.left
+        currentBlueStarsCount = data.tourney.manager.stars.right
+
+        // Reset stars
+        redStarsContainerEl.innerHTML = ""
+        blueStarsContainerEl.innerHTML = ""
+
+        // Create star
+        function createStar(image) {
+            let newStar = document.createElement("img")
+            newStar.setAttribute("src", `static/${image}.png`)
+            return newStar
+        }
+
+        // Red stars
+        let i = 0
+        for (i; i < currentRedStarsCount; i++) {
+            redStarsContainerEl.append(createStar("scorePoint"))
+        }
+        for (i; i < currentFirstTo; i++) {
+            redStarsContainerEl.append(createStar("scoreBlank"))
+        }
+        // Blue stars
+        i = 0
+        for (i; i < currentBlueStarsCount; i++) {
+            blueStarsContainerEl.append(createStar("scorePoint"))
+        }
+        for (i; i < currentFirstTo; i++) {
+            blueStarsContainerEl.append(createStar("scoreBlank"))
         }
     }
 }
