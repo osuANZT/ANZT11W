@@ -9,6 +9,8 @@
     --mapPanelDetailsLeft: 127px;
     --matchHistoryPanelWidth: 173.79px;
     --matchHistoryPanelHeight: 270px;
+
+    --sideBarButtonFullAndContainerWidth: 260px;
 }
 
 @font-face {
@@ -257,7 +259,7 @@ h1 {
 /* Side bar button */
 .sideBarButton { 
     font-family: "Mestiza"; font-weight: 500; font-size: 20px;
-    width: 125px; height: 50px; 
+    width: calc(var(--sideBarButtonFullAndContainerWidth) / 2 - 5px); height: 50px; 
     border-radius: 10px;
     background-color: transparent;
 }
@@ -271,7 +273,7 @@ h1 {
     margin-left: 25px;
 }
 #nextAutoPickerSectionButtons {
-    width: 260px;
+    width: var(--sideBarButtonFullAndContainerWidth);
     margin-top: 15px;
     margin-left: 25px;
     display: flex;
@@ -281,5 +283,5 @@ h1 {
 .fullSizeButton {
     margin-top: 15px;
     margin-left: 25px;
-    width: 260px;
+    width: var(--sideBarButtonFullAndContainerWidth);
 }
