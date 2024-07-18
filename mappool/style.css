@@ -10,6 +10,7 @@
     --matchHistoryPanelWidth: 173.79px;
     --matchHistoryPanelHeight: 270px;
 
+    --sideBarMainLeftMargin: 25px;
     --sideBarButtonFullAndContainerWidth: 260px;
 }
 
@@ -186,6 +187,12 @@
     transition: 500ms ease-in-out;
     opacity: 0;
 }
+/* Win Image */
+.winImage {
+    position: absolute; left: 19px; bottom: 15px;
+    transition: 500ms ease-in-out;
+    opacity: 0;
+}
 
 /* Match History */
 #matchHistoryTimelineContainer {
@@ -254,7 +261,7 @@ h1 {
     font-family: "Mestiza"; font-weight: 500; font-size: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 25px;
+    margin-left: var(--sideBarMainLeftMargin);
 }
 /* Side bar button */
 .sideBarButton { 
@@ -267,21 +274,26 @@ h1 {
     color: white;
     background-color: black;
 }
+/* Next Autopicker Section */
+#nextAutoPickerSection {
+    padding-bottom: 20px;
+    border-bottom: 4px solid gray;
+}
 /* Next Autopicker */
 #nextAutoPicker {
     font-family: "Mestiza"; font-weight: 500; font-size: 40px;
-    margin-left: 25px;
+    margin-left: var(--sideBarMainLeftMargin);
 }
 #nextAutoPickerSectionButtons {
     width: var(--sideBarButtonFullAndContainerWidth);
     margin-top: 15px;
-    margin-left: 25px;
+    margin-left: var(--sideBarMainLeftMargin);
     display: flex;
     justify-content: space-between;
 }
 /* Full Size Button  */
 .fullSizeButton {
     margin-top: 15px;
-    margin-left: 25px;
+    margin-left: var(--sideBarMainLeftMargin);
     width: var(--sideBarButtonFullAndContainerWidth);
 }

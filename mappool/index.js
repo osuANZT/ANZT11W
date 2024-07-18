@@ -114,9 +114,13 @@ async function getMappool() {
         const actionImage = document.createElement("img")
         actionImage.classList.add("actionImage")
 
+        // Win image
+        const winImage = document.createElement("img")
+        winImage.classList.add("winImage")
+
         // Append everything
         panel.append(panelImage, mapBackgroundImage, mapArtistAndTitle, mapDifficulty, CSARODStats, SRBPMLENStats, 
-            mapMapper, bannedPanel, playedPanel, actionImage)
+            mapMapper, bannedPanel, playedPanel, actionImage, winImage)
         switch (currentMap.mod) {
             case "NM": NMPanelsEl.append(panel); break;
             case "HD": HDPanelsEl.append(panel); break;
@@ -168,6 +172,10 @@ let currentBestOf = 0, currentFirstTo = 0, currentRedStarsCount = 0, currentBlue
 
 // Beatmap information
 let currentBeatmapId, currentBeatmapMd5
+
+// IPC State
+let checkedForWinner = false
+let currentIPCState
 
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -253,6 +261,29 @@ socket.onmessage = event => {
             }
         }
     }
+
+    // IPC State
+    if (currentIPCState !== data.tourney.manager.ipcState) {
+        currentIPCState = data.tourney.manager.ipcState
+        if (currentIPCState !== 4) checkedForWinner = false
+    }
+
+    if (currentIPCState === 4 && !checkedForWinner) {
+        checkedForWinner = true
+
+        // Assign the current picked map winner
+        if (currentPickTile) {
+            let currentScoreLeft = data.tourney.manager.gameplay.score.left
+            let currentScoreRight = data.tourney.manager.gameplay.score.right
+            if (currentScoreLeft > currentScoreRight) {
+                currentPickTile.children[10].style.opacity = 1
+                currentPickTile.children[10].setAttribute("src", "static/players/redWon.png")
+            } else if (currentScoreRight < currentScoreLeft) {
+                currentPickTile.children[10].style.opacity = 1
+                currentPickTile.children[10].setAttribute("src", "static/players/blueWon.png")
+            }
+        }
+    }
 }
 
 // Map Click Event
@@ -291,6 +322,7 @@ function mapClickEvent() {
         // Set ban
         this.children[9].setAttribute("src", `static/players/${team}Ban.png`)
         this.children[9].style.opacity = 1
+        this.children[10].style.opacity = 0
 
         // Set dataset action
         this.dataset.action = "ban"
@@ -303,6 +335,9 @@ function mapClickEvent() {
 
         this.children[9].setAttribute("src", ``)
         this.children[9].style.opacity = 0
+        this.children[10].setAttribute("src", ``)
+        this.children[10].style.opacity = 0
+
 
         this.removeAttribute("data-action")
         this.removeAttribute("data-is-autopicked")
