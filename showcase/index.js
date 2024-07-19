@@ -30,6 +30,7 @@ const mapStatsCSEl = document.getElementById("mapStatsCS")
 const mapStatsAREl = document.getElementById("mapStatsAR")
 const mapStatsODEl = document.getElementById("mapStatsOD")
 const mapStatsSREl = document.getElementById("mapStatsSR")
+const mapStatsBPMEl = document.getElementById("mapStatsBPM")
 
 // Player details
 const playerNameEl = document.getElementById("playerName")
@@ -88,6 +89,7 @@ socket.onmessage = event => {
             mapStatsAREl.innerText = Math.round(parseFloat(currentMap.ar) * 10) / 10
             mapStatsODEl.innerText = Math.round(parseFloat(currentMap.od) * 10) / 10
             mapStatsSREl.innerText = Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100
+			mapStatsBPMEl.innerText = currentMap.bpm
         }
     }
 
@@ -105,6 +107,12 @@ socket.onmessage = event => {
         mapStatsAREl.innerText = data.menu.bm.stats.AR
         mapStatsODEl.innerText = data.menu.bm.stats.OD
         mapStatsSREl.innerText = data.menu.bm.stats.fullSR
+
+		if (data.menu.bm.stats.BPM.min !== data.menu.bm.stats.BPM.max) {
+			mapStatsBPMEl.innerText = `${data.menu.bm.stats.BPM.min} - ${data.menu.bm.stats.BPM.max} (${data.menu.bm.stats.BPM.common})`
+		} else {
+			mapStatsBPMEl.innerText = data.menu.bm.stats.BPM.min
+		}
     }
 
     

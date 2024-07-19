@@ -72,11 +72,10 @@
 #mapArtist { top: 10px; }
 #mapSongAndDifficulty { top: 37px; }
 #mapInfoMods { top: 64px; }
-#mapStats { 
-    top: 91px;
-    display: flex;
-}
-#mapStats > * { margin-right: 54px; }
+.mapStats { display: flex; }
+#mapStatsCSRAOD { top: 91px; }
+#mapStatsSRBPM { top: 117px; }
+.mapStats > * { margin-right: 54px; }
 #mapInfoIdText { top: 143px; }
 
 /* Player Details Section */
