@@ -65,6 +65,12 @@
             <button class="sideBarButton fullSizeButton" onclick="toggleAutoPick()" id="toggleAutoPickButton">Toggle Auto Pick: OFF</button>
             <button class="sideBarButton fullSizeButton" onclick="resetAllMaps()" id="resetAllMapsButton">Reset All Maps</button>
         </section>
+        <section id="matchIdSection">
+            <h1>Enter the Match Id here: </h1>
+            <input type="number" id="matchId">
+            <button class="sideBarButton fullSizeButton" onclick="getMatches()">Get Matches</button>
+            <button class="sideBarButton fullSizeButton" onclick="resetMatchHistory()">Clear History</button>
+        </section>
     </div>
 
     <script src="index.js"></script>

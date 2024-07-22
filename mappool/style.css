@@ -297,3 +297,9 @@ h1 {
     margin-left: var(--sideBarMainLeftMargin);
     width: var(--sideBarButtonFullAndContainerWidth);
 }
+/* Match Id */
+#matchId {
+    margin-left: var(--sideBarMainLeftMargin);
+    font-family: "Mestiza"; font-weight: 500; font-size: 20px;
+    width: 250px;
+}
