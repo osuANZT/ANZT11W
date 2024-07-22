@@ -7,7 +7,7 @@
     --playerNameLeftRight: 317px;
     --starsContainerLeftRight: 302px;
     --mapPanelDetailsLeft: 127px;
-    --matchHistoryPanelWidth: 173.79px;
+    --matchHistoryPanelWidth: 172.79px;
     --matchHistoryPanelHeight: 270px;
 
     --sideBarMainLeftMargin: 25px;
@@ -203,9 +203,8 @@
     overflow: hidden;
 }
 #matchHistoryTimeline {
-    width: 1216.53px;
+    width: 1036px;
     display: flex;
-    transform: translateX(calc(-100% + 1216.53px))
 }
 #matchHistoryTimelineBottom {
     position: absolute; left: 772px; top: 1082px;

@@ -393,6 +393,7 @@ function resetAllMaps() {
 const matchIdEl = document.getElementById("matchId")
 function getMatches() {
     currentMPLink = parseInt(matchIdEl.value)
+    getAndAppendMatchHistory()
 }
 
 // Get and append match history
@@ -401,13 +402,17 @@ async function getAndAppendMatchHistory() {
     // Get MP Link
     if (previousMPLink !== currentMPLink) resetMatchHistory()
 
+    // Remove everything appended
+    matchHistoryTimelineEl.innerHTML = ""
+
     const response = await fetch(`https://osu.ppy.sh/api/get_match?k=${getAPIKey()}&mp=${currentMPLink}`)
     const responseJson = await response.json()
 
+    const fragment = document.createDocumentFragment()
     for (let i = numberOfMapsCounted; i < responseJson.games.length; i++) {
         const currentMap = findMapInMapool(parseInt(responseJson.games[i].beatmap_id))
         if (currentMap) {
-            const fragment = document.createDocumentFragment()
+            
             // Create elements
             // Panel
             const matchHistoryPanel = document.createElement("div")
@@ -418,24 +423,24 @@ async function getAndAppendMatchHistory() {
             const matchHistoryPanelImage = document.createElement("img")
             matchHistoryPanelImage.classList.add("matchHistoryPanelImage")
             matchHistoryPanelImage.setAttribute("src", "static/panels/MatchHistoryPanel.png")
-            fragment.append(matchHistoryPanelImage)
+            matchHistoryPanel.append(matchHistoryPanelImage)
 
             // Background Image
             const matchHistoryPanelBackgroundImage = document.createElement("div")
             matchHistoryPanelBackgroundImage.classList.add("matchHistoryPanelBackgroundImage")
             matchHistoryPanelBackgroundImage.style.backgroundImage = `url("${currentMap.imgURL}")`
-            fragment.append(matchHistoryPanelBackgroundImage)
+            matchHistoryPanel.append(matchHistoryPanelBackgroundImage)
 
             // Picked Overlay
             const matchHistoryPanelPickedBackground = document.createElement("div")
             matchHistoryPanelPickedBackground.classList.add("matchHistoryPanelPickedBackground")
-            fragment.append(matchHistoryPanelBackgroundImage)
+            matchHistoryPanel.append(matchHistoryPanelBackgroundImage)
 
             // Mod
             const matchHistoryPanelMod = document.createElement("img")
             matchHistoryPanelMod.classList.add("matchHistoryPanelMod")
             matchHistoryPanelMod.setAttribute("src", `static/match-history/${currentMap.mod}${currentMap.order}.png`)
-            fragment.append(matchHistoryPanelMod)
+            matchHistoryPanel.append(matchHistoryPanelMod)
 
             // Get scores
             let scoreObjects = []
@@ -458,17 +463,21 @@ async function getAndAppendMatchHistory() {
                 else scoreElement.classList.add("matchHistoryPanelLoserScore")
                 if (scoreObjects[index].player === currentRedPlayerId) scoreElement.classList.add("matchHistoryPanelRedScore")
                 else scoreElement.classList.add("matchHistoryPanelBlueScore")
-                scoreElement.innerText = scoreObjects[index].score
-                fragment.append(scoreElement)
+                scoreElement.innerText = scoreObjects[index].score.toLocaleString()
+                matchHistoryPanel.append(scoreElement)
             }
 
             createScoreElement(0)
             createScoreElement(1)
-
-            matchHistoryTimelineEl.append(fragment)
         }
     }
+    matchHistoryTimelineEl.append(fragment)
 
+    if (matchHistoryTimelineEl.childElementCount > 6) {
+        matchHistoryTimelineEl.style.transform = `translateX(${-172.79 * (matchHistoryTimelineEl.childElementCount - 6)}px)`
+    } else {
+        matchHistoryTimelineEl.style.transform = `translateX(0px)`
+    }
     previousMPLink = currentMPLink
 }
 
