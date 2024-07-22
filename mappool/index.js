@@ -402,15 +402,12 @@ async function getAndAppendMatchHistory() {
     // Get MP Link
     if (previousMPLink !== currentMPLink) resetMatchHistory()
 
-    // Remove everything appended
-    matchHistoryTimelineEl.innerHTML = ""
-
     const response = await fetch(`https://osu.ppy.sh/api/get_match?k=${getAPIKey()}&mp=${currentMPLink}`)
     const responseJson = await response.json()
 
     const fragment = document.createDocumentFragment()
-    for (let i = numberOfMapsCounted; i < responseJson.games.length; i++) {
-        const currentMap = findMapInMapool(parseInt(responseJson.games[i].beatmap_id))
+    for (numberOfMapsCounted; numberOfMapsCounted < responseJson.games.length; numberOfMapsCounted++) {
+        const currentMap = findMapInMapool(parseInt(responseJson.games[numberOfMapsCounted].beatmap_id))
         if (currentMap) {
             
             // Create elements
@@ -444,8 +441,8 @@ async function getAndAppendMatchHistory() {
 
             // Get scores
             let scoreObjects = []
-            for (let j = 0; j < responseJson.games[i].scores.length; j++) {
-                const currentScoreObject = responseJson.games[i].scores[j]
+            for (let j = 0; j < responseJson.games[numberOfMapsCounted].scores.length; j++) {
+                const currentScoreObject = responseJson.games[numberOfMapsCounted].scores[j]
                 scoreObjects[j] = {
                     "player": parseInt(currentScoreObject.user_id),
                     "score": parseInt(currentScoreObject.score)
