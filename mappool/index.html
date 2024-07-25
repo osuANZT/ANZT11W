@@ -55,22 +55,25 @@
 
     <!-- Side Bar -->
     <div id="sideBar">
-        <section id="nextAutoPickerSection">
-            <h1>Next Picker: </h1>
-            <div id="nextAutoPicker">Red</div>
-            <section id="nextAutoPickerSectionButtons">
-                <button class="sideBarButton" onclick="setNextAutoPicker('Red')">Red</button>
-                <button class="sideBarButton" onclick="setNextAutoPicker('Blue')">Blue</button>
+        <section id="sideBarColumn1">
+            <section id="nextAutoPickerSection">
+                <h1>Next Picker: </h1>
+                <div id="nextAutoPicker">Red</div>
+                <section id="nextAutoPickerSectionButtons">
+                    <button class="sideBarButton" onclick="setNextAutoPicker('Red')">Red</button>
+                    <button class="sideBarButton" onclick="setNextAutoPicker('Blue')">Blue</button>
+                </section>
+                <button class="sideBarButton fullSizeButton" onclick="toggleAutoPick()" id="toggleAutoPickButton">Toggle Auto Pick: OFF</button>
+                <button class="sideBarButton fullSizeButton" onclick="resetAllMaps()" id="resetAllMapsButton">Reset All Maps</button>
             </section>
-            <button class="sideBarButton fullSizeButton" onclick="toggleAutoPick()" id="toggleAutoPickButton">Toggle Auto Pick: OFF</button>
-            <button class="sideBarButton fullSizeButton" onclick="resetAllMaps()" id="resetAllMapsButton">Reset All Maps</button>
+            <section id="matchIdSection">
+                <h1>Enter the Match Id here: </h1>
+                <input type="number" id="matchId">
+                <button class="sideBarButton fullSizeButton" onclick="getMatches()">Get New Matches</button>
+                <button class="sideBarButton fullSizeButton" onclick="resetMatchHistory()">Clear History</button>
+            </section>
         </section>
-        <section id="matchIdSection">
-            <h1>Enter the Match Id here: </h1>
-            <input type="number" id="matchId">
-            <button class="sideBarButton fullSizeButton" onclick="getMatches()">Get New Matches</button>
-            <button class="sideBarButton fullSizeButton" onclick="resetMatchHistory()">Clear History</button>
-        </section>
+        <div id="divider"></div>
     </div>
 
     <script src="index.js"></script>
