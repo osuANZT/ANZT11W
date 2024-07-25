@@ -539,12 +539,14 @@ pickBanManagementOptionsEl.onchange = () => {
 
     // Set and remove ban
     if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "removeBan" ||
-        currentPickBanManagementOption === "setPick" || currentPickBanManagementOption === "removePick"
+        currentPickBanManagementOption === "setPick" || currentPickBanManagementOption === "removePick" ||
+        currentPickBanManagementOption === "setWinner" || currentPickBanManagementOption === "removeWinner"
     ) {
         // Choose which map
         createPickBanManagementMapSelection()
 
-        if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "setPick") {
+        if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "setPick" || 
+            currentPickBanManagementOption === "setWinner") {
             createPickBanManagementTeamSelection()
         }
     }
@@ -555,10 +557,12 @@ pickBanManagementOptionsEl.onchange = () => {
     applyChangesButton.innerText = "Apply Changes"
 
     switch (currentPickBanManagementOption) {
-        case "setBan": applyChangesButton.addEventListener("click", pickBanManagementSetBan)
-        case "removeBan": applyChangesButton.addEventListener("click", pickBanManagementRemoveBan)
-        case "setPick": applyChangesButton.addEventListener("click", pickBanManagementSetPick)
-        case "removePick": applyChangesButton.addEventListener("click", pickBanManagementRemovePick)
+        case "setBan": applyChangesButton.addEventListener("click", pickBanManagementSetBan); break;
+        case "removeBan": applyChangesButton.addEventListener("click", pickBanManagementRemoveBan); break;
+        case "setPick": applyChangesButton.addEventListener("click", pickBanManagementSetPick); break;
+        case "removePick": applyChangesButton.addEventListener("click", pickBanManagementRemovePick); break;
+        case "setWinner": applyChangesButton.addEventListener("click", pickBanManagementSetWinner); break;
+        case "removeWinner": applyChangesButton.addEventListener("click", pickBanManagementRemoveWinner); break;
     }
     pickBanManagementEl.append(applyChangesButton)
 }
@@ -630,11 +634,31 @@ function pickBanManagementRemovePick() {
     const currentTile = pickBanManagementFindMapTile()
     if (!currentTile) return
 
-    const whichTeamSelectOptionsEl = document.getElementById("whichTeamSelectOptions")
     if (window.getComputedStyle(currentTile.children[8]).opacity != 1) return
     currentTile.children[8].style.opacity = 0
     if (currentTile.children[9].hasAttribute("src")) currentTile.children[9].removeAttribute("src")
     currentTile.children[9].style.opacity = 0
+    if (currentTile.children[10].hasAttribute("src")) currentTile.children[10].removeAttribute("src")
+    currentTile.children[10].style.opacity = 0
+}
+
+// Pick Ban Management Set Winner 
+function pickBanManagementSetWinner() {
+    const currentTile = pickBanManagementFindMapTile()
+    if (!currentTile) return
+
+    // Set everything to set a winner
+    const whichTeamSelectOptionsEl = document.getElementById("whichTeamSelectOptions")
+    if (window.getComputedStyle(currentTile.children[8]).opacity != 1) return
+    currentTile.children[10].setAttribute("src", `static/players/${whichTeamSelectOptionsEl.value}Won.png`)
+    currentTile.children[10].style.opacity = 1
+}
+
+// Pick Ban Management Remove Winner
+function pickBanManagementRemoveWinner() {
+    const currentTile = pickBanManagementFindMapTile()
+    if (!currentTile) return
+    
     if (currentTile.children[10].hasAttribute("src")) currentTile.children[10].removeAttribute("src")
     currentTile.children[10].style.opacity = 0
 }
