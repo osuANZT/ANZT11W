@@ -558,6 +558,7 @@ pickBanManagementOptionsEl.onchange = () => {
         case "setBan": applyChangesButton.addEventListener("click", pickBanManagementSetBan)
         case "removeBan": applyChangesButton.addEventListener("click", pickBanManagementRemoveBan)
         case "setPick": applyChangesButton.addEventListener("click", pickBanManagementSetPick)
+        case "removePick": applyChangesButton.addEventListener("click", pickBanManagementRemovePick)
     }
     pickBanManagementEl.append(applyChangesButton)
 }
@@ -622,4 +623,18 @@ function pickBanManagementSetPick() {
     currentTile.children[8].style.opacity = 1
     currentTile.children[9].setAttribute("src", `static/players/${whichTeamSelectOptionsEl.value}Pick.png`)
     currentTile.children[9].style.opacity = 1
+}
+
+// Pick Ban Management Remove Pick
+function pickBanManagementRemovePick() {
+    const currentTile = pickBanManagementFindMapTile()
+    if (!currentTile) return
+
+    const whichTeamSelectOptionsEl = document.getElementById("whichTeamSelectOptions")
+    if (window.getComputedStyle(currentTile.children[8]).opacity != 1) return
+    currentTile.children[8].style.opacity = 0
+    if (currentTile.children[9].hasAttribute("src")) currentTile.children[9].removeAttribute("src")
+    currentTile.children[9].style.opacity = 0
+    if (currentTile.children[10].hasAttribute("src")) currentTile.children[10].removeAttribute("src")
+    currentTile.children[10].style.opacity = 0
 }
