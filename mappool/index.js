@@ -496,9 +496,7 @@ pickBanManagementOptionsEl.onchange = () => {
         pickBanManagementEl.lastChild.remove()
     }
 
-    // Set Ban
-    if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "removeBan") {
-        // Choose which map
+    function createPickBanManagementMapSelection() {
         // Title
         const whichMapTitle = document.createElement("h1")
         whichMapTitle.innerText = "Which map?"
@@ -517,25 +515,37 @@ pickBanManagementOptionsEl.onchange = () => {
             whichMapButton.addEventListener("click", pickBanManagementSetMap)
             whichMapButtonContainer.append(whichMapButton)
         }
+    }
 
-        if (currentPickBanManagementOption === "setBan") {
-            // Choose which team
-            // Title
-            const whichTeamTitle = document.createElement("h1")
-            whichTeamTitle.innerText = "Which team?"
-            pickBanManagementEl.append(whichTeamTitle)
-            // Element to store both teams
-            const whichTeamSelectContainer = document.createElement("select")
-            whichTeamSelectContainer.classList.add("pickManagementSelect")
-            whichTeamSelectContainer.setAttribute("id", "whichTeamSelectOptions")
-            whichTeamSelectContainer.setAttribute("size", 2)
-            pickBanManagementEl.append(whichTeamSelectContainer)
-            for (let i = 0; i < 2; i++) {
-                const whichTeamOption = document.createElement("option")
-                whichTeamOption.setAttribute("value", (i === 0)? "red" : "blue")
-                whichTeamOption.innerText = (i === 0)? "Red" : "Blue"
-                whichTeamSelectContainer.append(whichTeamOption)
-            }
+    function createPickBanManagementTeamSelection() {
+        // Choose which team
+        // Title
+        const whichTeamTitle = document.createElement("h1")
+        whichTeamTitle.innerText = "Which team?"
+        pickBanManagementEl.append(whichTeamTitle)
+        // Element to store both teams
+        const whichTeamSelectContainer = document.createElement("select")
+        whichTeamSelectContainer.classList.add("pickManagementSelect")
+        whichTeamSelectContainer.setAttribute("id", "whichTeamSelectOptions")
+        whichTeamSelectContainer.setAttribute("size", 2)
+        pickBanManagementEl.append(whichTeamSelectContainer)
+        for (let i = 0; i < 2; i++) {
+            const whichTeamOption = document.createElement("option")
+            whichTeamOption.setAttribute("value", (i === 0)? "red" : "blue")
+            whichTeamOption.innerText = (i === 0)? "Red" : "Blue"
+            whichTeamSelectContainer.append(whichTeamOption)
+        }
+    }
+
+    // Set and remove ban
+    if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "removeBan" ||
+        currentPickBanManagementOption === "setPick" || currentPickBanManagementOption === "removePick"
+    ) {
+        // Choose which map
+        createPickBanManagementMapSelection()
+
+        if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "setPick") {
+            createPickBanManagementTeamSelection()
         }
     }
 
@@ -547,6 +557,7 @@ pickBanManagementOptionsEl.onchange = () => {
     switch (currentPickBanManagementOption) {
         case "setBan": applyChangesButton.addEventListener("click", pickBanManagementSetBan)
         case "removeBan": applyChangesButton.addEventListener("click", pickBanManagementRemoveBan)
+        case "setPick": applyChangesButton.addEventListener("click", pickBanManagementSetPick)
     }
     pickBanManagementEl.append(applyChangesButton)
 }
@@ -598,4 +609,17 @@ function pickBanManagementRemoveBan() {
     currentTile.children[7].style.opacity = 0
     if (currentTile.children[9].hasAttribute("src")) currentTile.children[9].removeAttribute("src")
     currentTile.children[9].style.opacity = 0
+}
+
+// Pick Ban Management Set Pick
+function pickBanManagementSetPick() {
+    const currentTile = pickBanManagementFindMapTile()
+    if (!currentTile) return
+
+    // Set everything to set a pick
+    const whichTeamSelectOptionsEl = document.getElementById("whichTeamSelectOptions")
+    currentTile.children[7].style.opacity = 0
+    currentTile.children[8].style.opacity = 1
+    currentTile.children[9].setAttribute("src", `static/players/${whichTeamSelectOptionsEl.value}Pick.png`)
+    currentTile.children[9].style.opacity = 1
 }
