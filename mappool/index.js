@@ -483,3 +483,96 @@ function resetMatchHistory() {
     matchHistoryTimelineEl.innerHTML = ""
     numberOfMapsCounted = 0
 }
+
+/* Pick Ban Management */
+const pickBanManagementEl = document.getElementById("pickBanManagement")
+const pickBanManagementOptionsEl = document.getElementById("pickBanManagementOptions")
+let currentPickBanManagementOption
+pickBanManagementOptionsEl.onchange = () => {
+    currentPickBanManagementOption = pickBanManagementOptionsEl.value
+    currentPickBanManagementMapId = undefined
+
+    while (pickBanManagementEl.childElementCount > 2) {
+        pickBanManagementEl.lastChild.remove()
+    }
+
+    // Set Ban
+    if (currentPickBanManagementOption === "setBan") {
+        // Choose which map
+        // Title
+        const whichMapTitle = document.createElement("h1")
+        whichMapTitle.innerText = "Which map?"
+        pickBanManagementEl.append(whichMapTitle)
+
+        // Element to store all buttons
+        const whichMapButtonContainer = document.createElement("div")
+        whichMapButtonContainer.classList.add("whichMapButtonContainer")
+        pickBanManagementEl.append(whichMapButtonContainer)
+        for (let i = 0; i < allBeatmaps.length; i++) {
+            const whichMapButton = document.createElement("button")
+            whichMapButton.classList.add("whichMapButton")
+            whichMapButton.innerText = `${allBeatmaps[i].mod}${allBeatmaps[i].order}`
+            whichMapButton.setAttribute("data-id", allBeatmaps[i].beatmapID)
+            whichMapButton.setAttribute("data-pickBanManagement", "ban")
+            whichMapButton.addEventListener("click", pickBanManagementSetMap)
+            whichMapButtonContainer.append(whichMapButton)
+        }
+
+        // Choose which team
+        // Title
+        const whichTeamTitle = document.createElement("h1")
+        whichTeamTitle.innerText = "Which team?"
+        pickBanManagementEl.append(whichTeamTitle)
+        // Element to store both teams
+        const whichTeamSelectContainer = document.createElement("select")
+        whichTeamSelectContainer.classList.add("pickManagementSelect")
+        whichTeamSelectContainer.setAttribute("id", "whichTeamSelectOptions")
+        whichTeamSelectContainer.setAttribute("size", 2)
+        pickBanManagementEl.append(whichTeamSelectContainer)
+        for (let i = 0; i < 2; i++) {
+            const whichTeamOption = document.createElement("option")
+            whichTeamOption.setAttribute("value", (i === 0)? "red" : "blue")
+            whichTeamOption.innerText = (i === 0)? "Red" : "Blue"
+            whichTeamSelectContainer.append(whichTeamOption)
+        }
+    }
+
+    // Apply changes button
+    const applyChangesButton = document.createElement("button")
+    applyChangesButton.classList.add("sideBarButton", "fullSizeButton")
+    applyChangesButton.innerText = "Apply Changes"
+
+    switch (currentPickBanManagementOption) {
+        case "setBan": applyChangesButton.addEventListener("click", pickBanManagementSetBan)
+    }
+    pickBanManagementEl.append(applyChangesButton)
+}
+
+// Pick Ban Management Set Map
+let currentPickBanManagementMapId
+function pickBanManagementSetMap() {
+    const whichMapButtonEls = document.getElementsByClassName("whichMapButton")
+    for (let i = 0; i < whichMapButtonEls.length; i++) {
+        whichMapButtonEls[i].style.backgroundColor = "white"
+    }
+    this.style.backgroundColor = "rgb(206,206,206)"
+    currentPickBanManagementMapId = this.dataset.id
+}
+
+// Pick Ban Management Set Ban
+function pickBanManagementSetBan() {
+    // Find tile
+    if (!currentPickBanManagementMapId) return
+    const currentTile = document.querySelector(`.panel[data-id="${currentPickBanManagementMapId}"]`)
+    console.log(currentTile)
+    if (!currentTile) return
+
+    // Set everything for the team colours ban
+    const whichTeamSelectOptionsEl = document.getElementById("whichTeamSelectOptions")
+    currentTile.children[7].style.opacity = 1
+    currentTile.children[8].style.opacity = 0
+    currentTile.children[9].setAttribute("src", `static/players/${whichTeamSelectOptionsEl.value}Ban.png`)
+    currentTile.children[9].style.opacity = 1
+    if (currentTile.children[10].hasAttribute("src")) currentTile.children[10].removeAttribute("src")
+    currentTile.children[10].style.opacity = 0
+}

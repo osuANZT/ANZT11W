@@ -263,7 +263,8 @@ h1 {
     margin-left: var(--sideBarMainLeftMargin);
 }
 /* Side Bar Column */
-#sideBarColumn1 { width: 300px; height: 1440px; }
+.sideBarColumn { width: 300px; height: 1440px; }
+#sideBarColumn2 { position: absolute; left: 300px; top: 0; }
 /* Divider */
 #divider {
     position: absolute; left: 299px; top: 0;
@@ -309,4 +310,28 @@ h1 {
     margin-left: var(--sideBarMainLeftMargin);
     font-family: "Mestiza"; font-weight: 500; font-size: 20px;
     width: 250px;
+}
+
+/* Pick management options */
+.pickManagementSelect {
+    width: 200px;
+    text-align: center;
+    margin-left: 50px;
+    border: none;
+    font-family: "Mestiza"; font-weight: 500; font-size: 24px;
+    margin-bottom: 20px;
+}
+.pickManagementSelect::-webkit-scrollbar { display: none; }
+/* Which Map? */
+.whichMapButtonContainer {
+    margin-left: var(--sideBarMainLeftMargin);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.whichMapButton {
+    width: 84px; height: 45px;
+    font-family: "Mestiza"; font-weight: 500; font-size: 24px;
+    background-color: transparent;
+    border: none;
 }
