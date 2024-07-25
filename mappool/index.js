@@ -497,7 +497,7 @@ pickBanManagementOptionsEl.onchange = () => {
     }
 
     // Set Ban
-    if (currentPickBanManagementOption === "setBan") {
+    if (currentPickBanManagementOption === "setBan" || currentPickBanManagementOption === "removeBan") {
         // Choose which map
         // Title
         const whichMapTitle = document.createElement("h1")
@@ -518,22 +518,24 @@ pickBanManagementOptionsEl.onchange = () => {
             whichMapButtonContainer.append(whichMapButton)
         }
 
-        // Choose which team
-        // Title
-        const whichTeamTitle = document.createElement("h1")
-        whichTeamTitle.innerText = "Which team?"
-        pickBanManagementEl.append(whichTeamTitle)
-        // Element to store both teams
-        const whichTeamSelectContainer = document.createElement("select")
-        whichTeamSelectContainer.classList.add("pickManagementSelect")
-        whichTeamSelectContainer.setAttribute("id", "whichTeamSelectOptions")
-        whichTeamSelectContainer.setAttribute("size", 2)
-        pickBanManagementEl.append(whichTeamSelectContainer)
-        for (let i = 0; i < 2; i++) {
-            const whichTeamOption = document.createElement("option")
-            whichTeamOption.setAttribute("value", (i === 0)? "red" : "blue")
-            whichTeamOption.innerText = (i === 0)? "Red" : "Blue"
-            whichTeamSelectContainer.append(whichTeamOption)
+        if (currentPickBanManagementOption === "setBan") {
+            // Choose which team
+            // Title
+            const whichTeamTitle = document.createElement("h1")
+            whichTeamTitle.innerText = "Which team?"
+            pickBanManagementEl.append(whichTeamTitle)
+            // Element to store both teams
+            const whichTeamSelectContainer = document.createElement("select")
+            whichTeamSelectContainer.classList.add("pickManagementSelect")
+            whichTeamSelectContainer.setAttribute("id", "whichTeamSelectOptions")
+            whichTeamSelectContainer.setAttribute("size", 2)
+            pickBanManagementEl.append(whichTeamSelectContainer)
+            for (let i = 0; i < 2; i++) {
+                const whichTeamOption = document.createElement("option")
+                whichTeamOption.setAttribute("value", (i === 0)? "red" : "blue")
+                whichTeamOption.innerText = (i === 0)? "Red" : "Blue"
+                whichTeamSelectContainer.append(whichTeamOption)
+            }
         }
     }
 
@@ -544,6 +546,7 @@ pickBanManagementOptionsEl.onchange = () => {
 
     switch (currentPickBanManagementOption) {
         case "setBan": applyChangesButton.addEventListener("click", pickBanManagementSetBan)
+        case "removeBan": applyChangesButton.addEventListener("click", pickBanManagementRemoveBan)
     }
     pickBanManagementEl.append(applyChangesButton)
 }
@@ -559,12 +562,18 @@ function pickBanManagementSetMap() {
     currentPickBanManagementMapId = this.dataset.id
 }
 
+// Pick Ban Management Find Map Tile
+function pickBanManagementFindMapTile() {
+    if (!currentPickBanManagementMapId) return false
+    const currentTile = document.querySelector(`.panel[data-id="${currentPickBanManagementMapId}"]`)
+    if (!currentTile) return false
+    return currentTile
+}
+
 // Pick Ban Management Set Ban
 function pickBanManagementSetBan() {
     // Find tile
-    if (!currentPickBanManagementMapId) return
-    const currentTile = document.querySelector(`.panel[data-id="${currentPickBanManagementMapId}"]`)
-    console.log(currentTile)
+    const currentTile = pickBanManagementFindMapTile()
     if (!currentTile) return
 
     // Set everything for the team colours ban
@@ -575,4 +584,18 @@ function pickBanManagementSetBan() {
     currentTile.children[9].style.opacity = 1
     if (currentTile.children[10].hasAttribute("src")) currentTile.children[10].removeAttribute("src")
     currentTile.children[10].style.opacity = 0
+}
+
+// Pick Ban Management Remove Ban
+function pickBanManagementRemoveBan() {
+    // Find tile
+    const currentTile = pickBanManagementFindMapTile()
+    if (!currentTile) return
+
+    // Set everything to remove ban
+    // Check if it is a ban first
+    if (window.getComputedStyle(currentTile.children[7]).opacity != 1) return
+    currentTile.children[7].style.opacity = 0
+    if (currentTile.children[9].hasAttribute("src")) currentTile.children[9].removeAttribute("src")
+    currentTile.children[9].style.opacity = 0
 }
