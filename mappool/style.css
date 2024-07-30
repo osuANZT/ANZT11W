@@ -273,3 +273,37 @@ h1 {
     background-color: transparent;
     border: none;
 }
+
+/* Chat Display */
+#chatDisplay {
+    position: absolute; left: 50%; bottom: 0;
+    transform: translateX(-50%);
+    width: 1037px; height: 303px;
+    background-color: rgba(0,0,0,0.369);
+    border: 1px solid rgba(0,0,0,0.369);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.chatMessageContainer { 
+    margin: 2px 0;
+    display: flex; 
+    font-family: "Mestiza"; font-weight: 500; font-size: 20px;
+}
+.chatDisplayTime {
+    width: 77px;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.51px;
+    text-indent: 0.255px;
+}
+.chatDisplayWholeMessage {
+    width: 669px;
+    margin-left: 24px;
+    letter-spacing: 0.51px;
+    text-indent: 0.255px;
+}
+.chatDisplayName { font-weight: 700; }
+.left { color: var(--redPlayerColour) }
+.right { color: var(--bluePlayerColour) }
+.unknown { color: #6f00ff }
+.bot { color: rgb(8, 0, 255) }
