@@ -54,3 +54,18 @@
     right: 25%;
     transform: translateX(50%);
 }
+
+/* Moving Score Bar */
+.movingScoreBar {
+    position: absolute; top: 1193px; 
+    height: 10px;
+    transition: 200ms ease-in-out;
+}
+#movingScoreBarRed {
+    right: 50%;
+    background-color: var(--redPlayerColour);
+}
+#movingScoreBarBlue {
+    left: 50%;
+    background-color: var(--bluePlayerColour);
+}
