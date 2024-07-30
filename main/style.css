@@ -84,3 +84,6 @@
 /* Playing Score Difference */
 .currentPlayingScoreDifference { font-size: 27px; }
 #currentPlayingScoreRedDifference { text-align: right; }
+
+/* Chat Display */
+#chatDisplay { height: 244px; }
