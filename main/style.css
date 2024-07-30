@@ -10,14 +10,9 @@
 }
 
 @font-face {
-    font-family: "Mestiza";
+    font-family: "Solway";
     font-weight: 500;
-    src: url("../fonts/Mestiza-Medium.otf")
-}
-@font-face {
-    font-family: "Mestiza";
-    font-weight: 900;
-    src: url("../fonts/Mestiza-Black.otf")
+    src: url("../fonts/Solway-Medium.ttf")
 }
 
 /* Whole Page */
@@ -26,3 +21,22 @@
     width: 2560px; height: 1440px;
     background-image: url("static/background.png")
 }
+
+/* Non 300 Counts */
+.non300Counts {
+    position: absolute; top: 1131px;
+    color: white;
+    font-family: "Solway"; font-weight: 500; font-size: 30px;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, 1px 1px 0 black, 1px 1px 0 black;
+}
+#redNon300Counts {
+    left: 25%; 
+    transform: translateX(-53%);
+}
+#blueNon300Counts {
+    right: 25%; 
+    transform: translateX(47%);
+}
+.count100 { color: #48ff51; }
+.count50 { color: rgb(72, 158, 255); }
+.countMiss { color: rgb(255, 72, 72); }
