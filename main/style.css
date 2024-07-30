@@ -40,3 +40,17 @@
 .count100 { color: #48ff51; }
 .count50 { color: rgb(72, 158, 255); }
 .countMiss { color: rgb(255, 72, 72); }
+
+/* Unstable Rate */
+.unstableRate {
+    position: absolute; top: 1191px;
+    font-family: "Solway"; font-weight: 500; font-size: 26px;
+}
+#redUnstableRate {
+    left: 25%;
+    transform: translateX(-50%);
+}
+#blueUnstableRate {
+    right: 25%;
+    transform: translateX(50%);
+}
