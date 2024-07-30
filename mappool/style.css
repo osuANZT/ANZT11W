@@ -2,10 +2,6 @@
     --redPlayerColour: rgb(197, 19, 19);
     --bluePlayerColour: rgb(24, 82, 196);
 
-    --profilePictureWidthHeight: 75px;
-    --profilePictureLeftRight: 227px;
-    --playerNameLeftRight: 317px;
-    --starsContainerLeftRight: 302px;
     --mapPanelDetailsLeft: 127px;
     --matchHistoryPanelWidth: 172.79px;
     --matchHistoryPanelHeight: 270px;
@@ -53,64 +49,6 @@
     position: absolute; left: 0; top: 0;
     width: 2560px; height: 1440px;
     background-image: url("static/background.png")
-}
-
-/* Profile Pictures */
-.profilePicture {
-    position: absolute; top: 96px;
-    width: var(--profilePictureWidthHeight); height: var(--profilePictureWidthHeight);
-    border: 1px solid black;
-    border-radius: 2px;
-    background-size: cover;
-    background-position: center;
-}
-#redProfilePicture { left: var(--profilePictureLeftRight); }
-#blueProfilePicture { right: var(--profilePictureLeftRight); }
-
-/* Names */
-.playerName {
-    position: absolute; top: 103px;
-    color: white;
-    height: 35px;
-    padding: 0 8px;
-    outline: 2px solid white;
-    outline-offset: -3px;
-    border: 2px solid black;
-    font-family: "Mestiza"; font-weight: 500; font-size: 20px;
-    box-sizing: border-box;
-    line-height: 29px;
-}
-#redPlayerName {
-    left: var(--playerNameLeftRight); 
-    background-color: var(--redPlayerColour);
-}
-#bluePlayerName {
-    right: var(--playerNameLeftRight); 
-    background-color: var(--bluePlayerColour);
-}
-
-/* Stars */
-.starsContainer {
-    position: absolute; top: 129px;
-    display: flex;
-}
-#redStarsContainer { left: var(--starsContainerLeftRight); }
-#blueStarsContainer { 
-    right: var(--starsContainerLeftRight); 
-    flex-direction: row-reverse;
-}
-#redStarsContainer > * { margin-right: -21px; }
-#blueStarsContainer > * { margin-left: -21px; }
-
-/* Round Name */
-#roundName {
-    position: absolute; left: 50%; top: 182px;
-    transform: translateX(-50%);
-    width: 86px; height: 30px;
-    border: 1px solid black;
-    font-family: "Mestiza"; font-weight: 500; font-size: 24px;
-    text-align: center;
-    line-height: 29px;
 }
 
 /* Panels */
