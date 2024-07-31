@@ -51,6 +51,20 @@ const redStarsContainerEl = document.getElementById("redStarsContainer")
 const blueStarsContainerEl = document.getElementById("blueStarsContainer")
 let currentBestOf = 0, currentFirstTo = 0, currentRedStarsCount = 0, currentBlueStarsCount = 0
 
+// IPC State
+let currentIPCState
+
+// Gameplay related stuff
+// Non 300 Counts
+const redNon300CountsEl = document.getElementById("redNon300Counts")
+const red100CountEl = document.getElementById("red100Count")
+const red50CountEl = document.getElementById("red50Count")
+const redMissCountEl = document.getElementById("redMissCount")
+const blueNon300CountsEl = document.getElementById("blueNon300Counts")
+const blue100CountEl = document.getElementById("blue100Count")
+const blue50CountEl = document.getElementById("blue50Count")
+const blueMissCountEl = document.getElementById("blueMissCount")
+
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
     console.log(data)
@@ -108,5 +122,41 @@ socket.onmessage = event => {
         i = 0
         for (i; i < currentBlueStarsCount; i++) blueStarsContainerEl.append(createStar("scorePoint"))
         for (i; i < currentFirstTo; i++) blueStarsContainerEl.append(createStar("scoreBlank"))
+    }
+
+    // Current IPC State
+    if (currentIPCState !== data.tourney.manager.ipcState) {
+        currentIPCState = data.tourney.manager.ipcState
+
+        // Gameplay only stuff
+        if (currentIPCState === 2 || currentIPCState === 3) {
+            redNon300CountsEl.style.opacity = 1
+            blueNon300CountsEl.style.opacity = 1
+        } else {
+            redNon300CountsEl.style.opacity = 0
+            blueNon300CountsEl.style.opacity = 0
+        }
+    }
+
+    // Non 100 counts
+    if (currentIPCState === 2 || currentIPCState === 3) {
+        if (red100CountEl.innerText !== data.tourney.ipcClients[0].gameplay.hits[100]) {
+            red100CountEl.innerText = data.tourney.ipcClients[0].gameplay.hits[100]
+        }
+        if (red50CountEl.innerText !== data.tourney.ipcClients[0].gameplay.hits[50]) {
+            red50CountEl.innerText = data.tourney.ipcClients[0].gameplay.hits[50]
+        }
+        if (redMissCountEl.innerText !== data.tourney.ipcClients[0].gameplay.hits[0]) {
+            redMissCountEl.innerText = data.tourney.ipcClients[0].gameplay.hits[0]
+        }
+        if (blue100CountEl.innerText !== data.tourney.ipcClients[1].gameplay.hits[100]) {
+            blue100CountEl.innerText = data.tourney.ipcClients[1].gameplay.hits[100]
+        }
+        if (blue50CountEl.innerText !== data.tourney.ipcClients[1].gameplay.hits[50]) {
+            blue50CountEl.innerText = data.tourney.ipcClients[1].gameplay.hits[50]
+        }
+        if (blueMissCountEl.innerText !== data.tourney.ipcClients[1].gameplay.hits[0]) {
+            blueMissCountEl.innerText = data.tourney.ipcClients[1].gameplay.hits[0]
+        }
     }
 }

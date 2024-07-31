@@ -48,6 +48,8 @@
     color: white;
     font-family: "Solway"; font-weight: 500; font-size: 30px;
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, 1px 1px 0 black, 1px 1px 0 black;
+    opacity: 1;
+    transition: 500ms ease-in-out;
 }
 #redNon300Counts {
     left: 25%; 
