@@ -78,6 +78,10 @@
 }
 
 /* Moving Score Bar */
+#movingScoreBars {
+    opacity: 1;
+    transition: 500ms ease-in-out;
+}
 .movingScoreBar {
     position: absolute; top: 1193px; 
     height: 10px;
@@ -93,6 +97,10 @@
 }
 
 /* Current Scores */
+#currentScoreContainers {
+    opacity: 1;
+    transition: 500ms ease-in-out;
+}
 .currentScore {
     position: absolute; top: 1216px;
     font-family: "Solway"; font-weight: 500; font-size: 43px;

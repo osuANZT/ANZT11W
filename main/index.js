@@ -74,7 +74,11 @@ const redUnstableRateEl = document.getElementById("redUnstableRate")
 const blueUnstableRateEl = document.getElementById("blueUnstableRate")
 let currentRedUnstableRate, currentBlueUnstableRate
 
+// Score Visibility
+let isScoreVisible
+
 // Scores
+const currentScoreContainersEl = document.getElementById("currentScoreContainers")
 const currentScoreRedEl = document.getElementById("currentScoreRed")
 const currentScoreBlueEl = document.getElementById("currentScoreBlue")
 const currentPlayingScoreRedEl = document.getElementById("currentPlayingScoreRed")
@@ -84,6 +88,7 @@ const currentPlayingScoreBlueDifferenceEl = document.getElementById("currentPlay
 let currentScoreRed, currentScoreBlue, currentScoreDelta
 
 // Moving score bars
+const movingScoreBarsEl = document.getElementById("movingScoreBars")
 const movingScoreBarRedEl = document.getElementById("movingScoreBarRed")
 const movingScoreBarBlueEl = document.getElementById("movingScoreBarBlue")
 
@@ -172,7 +177,6 @@ socket.onmessage = event => {
         }
     }
 
-
     if (currentIPCState === 2 || currentIPCState === 3) {
         // Non 300 counts
         if (currentRed100Count !== data.tourney.ipcClients[0].gameplay.hits[100]) {
@@ -209,7 +213,23 @@ socket.onmessage = event => {
             currentBlueUnstableRate = data.tourney.ipcClients[1].gameplay.hits.unstableRate
             countUps.blueUnstableRate.update(currentBlueUnstableRate)
         }
+    }
 
+    // Set score visibility
+    if (isScoreVisible !== data.tourney.manager.bools.scoreVisible) {
+        isScoreVisible = data.tourney.manager.bools.scoreVisible
+
+        if (isScoreVisible) {
+            movingScoreBarsEl.style.opacity = 1
+            currentScoreContainersEl.style.opacity = 1
+        } else {
+            movingScoreBarsEl.style.opacity = 0
+            currentScoreContainersEl.style.opacity = 0
+        }
+    }
+
+    // Get scores
+    if (isScoreVisible) {
         // Scores
         currentScoreRed = data.tourney.manager.gameplay.score.left
         currentScoreBlue = data.tourney.manager.gameplay.score.left

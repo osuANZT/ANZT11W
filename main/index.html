@@ -52,17 +52,21 @@
         </div>
 
         <!-- Moving score bar -->
-        <div class="movingScoreBar" id="movingScoreBarRed"></div>
-        <div class="movingScoreBar" id="movingScoreBarBlue"></div>
+        <div id="movingScoreBars">
+            <div class="movingScoreBar" id="movingScoreBarRed"></div>
+            <div class="movingScoreBar" id="movingScoreBarBlue"></div>
+        </div>
 
         <!-- Scores -->
-        <div class="currentScore" id="currentScoreRed">
-            <div id="currentPlayingScoreRed">123,456</div>
-            <div class="currentPlayingScoreDifference" id="currentPlayingScoreRedDifference"></div>
-        </div>
-        <div class="currentScore" id="currentScoreBlue">
-            <div class="currentPlayingScoreLead" id="currentPlayingScoreBlue">567,890</div>
-            <div class="currentPlayingScoreDifference" id="currentPlayingScoreBlueDifference">444,344</div>
+        <div id="currentScoreContainers">
+            <div class="currentScore" id="currentScoreRed">
+                <div id="currentPlayingScoreRed">123,456</div>
+                <div class="currentPlayingScoreDifference" id="currentPlayingScoreRedDifference"></div>
+            </div>
+            <div class="currentScore" id="currentScoreBlue">
+                <div class="currentPlayingScoreLead" id="currentPlayingScoreBlue">567,890</div>
+                <div class="currentPlayingScoreDifference" id="currentPlayingScoreBlueDifference">444,344</div>
+            </div>
         </div>
 
         <!-- Chat Display -->
