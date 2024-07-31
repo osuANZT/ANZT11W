@@ -151,7 +151,6 @@ getPlayers()
 // Get players from player name
 const getPlayersFromName = playerName => allPlayers.find(player => player.playerName === playerName)
 
-
 // Socket Events
 // Credits: VictimCrasher - https://github.com/VictimCrasher/static/tree/master/WaveTournament
 const socket = new ReconnectingWebSocket("ws://" + location.host + "/ws")
@@ -159,6 +158,9 @@ socket.onopen = () => { console.log("Successfully Connected") }
 socket.onclose = event => { console.log("Socket Closed Connection: ", event); socket.send("Client Closed!") }
 socket.onerror = error => { console.log("Socket Error: ", error) }
 
+// Seeds
+const redPlayerSeedEl = document.getElementById("redPlayerSeed")
+const bluePlayerSeedEl = document.getElementById("bluePlayerSeed")
 // Profile Pictures
 const redProfilePictureEl = document.getElementById("redProfilePicture")
 const blueProfilePictureEl = document.getElementById("blueProfilePicture")
@@ -202,6 +204,7 @@ socket.onmessage = event => {
         let playerDetails = getPlayersFromName(currentRedPlayerName)
         if (playerDetails) {
             currentRedPlayerId = playerDetails.playerId
+            redPlayerSeedEl.innerText = playerDetails.playerSeed
             redProfilePictureEl.style.backgroundImage = `url("https://a.ppy.sh/${currentRedPlayerId}")`
         }
     }
@@ -212,6 +215,7 @@ socket.onmessage = event => {
         let playerDetails = getPlayersFromName(currentBluePlayerName)
         if (playerDetails) {
             currentBluePlayerId = playerDetails.playerId
+            bluePlayerSeedEl.innerText = playerDetails.playerSeed
             blueProfilePictureEl.style.backgroundImage = `url("https://a.ppy.sh/${currentBluePlayerId}")`
         }
     }
