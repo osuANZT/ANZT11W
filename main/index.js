@@ -1,3 +1,5 @@
+const countUp = require("../_shared/deps/countUp")
+
 // Round name
 const roundNameEl = document.getElementById("roundName")
 
@@ -72,10 +74,21 @@ const redUnstableRateEl = document.getElementById("redUnstableRate")
 const blueUnstableRateEl = document.getElementById("blueUnstableRate")
 let currentRedUnstableRate, currentBlueUnstableRate
 
+// Scores
+const currentPlayingScoreRedEl = document.getElementById("currentPlayingScoreRed")
+const currentPlayingScoreRedDifferenceEl = document.getElementById("currentPlayingScoreRedDifference")
+const currentPlayingScoreBlueEl = document.getElementById("currentPlayingScoreBlue")
+const currentPlayingScoreBlueDifferenceEl = document.getElementById("currentPlayingScoreBlueDifference")
+let currentScoreRed, currentScoreBlue, currentScoreDelta
+
 // Countups
 const countUps = {
     redUnstableRate: new CountUp(redUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
-    blueUnstableRate: new CountUp(blueUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." })
+    blueUnstableRate: new CountUp(blueUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreRed: new CountUp(currentPlayingScoreRedEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreRedDelta: new CountUp(currentPlayingScoreRedDifferenceEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreBlue: new CountUp(currentPlayingScoreBlueEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreBlueDelta: new CountUp(currentPlayingScoreBlueDifferenceEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
 }
 
 socket.onmessage = event => {
@@ -189,6 +202,41 @@ socket.onmessage = event => {
         if (currentBlueUnstableRate !== data.tourney.ipcClients[1].gameplay.hits.unstableRate) {
             currentBlueUnstableRate = data.tourney.ipcClients[1].gameplay.hits.unstableRate
             countUps.blueUnstableRate.update(currentBlueUnstableRate)
+        }
+
+        // Scores
+        currentScoreRed = data.tourney.manager.gameplay.score.left
+        currentScoreBlue = data.tourney.manager.gameplay.score.left
+        currentScoreDelta = Math.abs(currentScoreRed - currentScoreBlue)
+
+        // Update scores
+        countUps.playingScoreRed.update(currentScoreRed)
+        countUps.playingScoreBlue.update(currentScoreBlue)
+        countUps.playingScoreRedDelta.update(currentScoreDelta)
+        countUps.playingScoreBlueDelta.update(currentScoreDelta)
+
+        if (currentScoreRed > currentScoreBlue) {
+            // Set visibility and classes
+            if (!currentPlayingScoreRedEl.classList.has("currentPlayingScoreLead")) {
+                currentPlayingScoreRedEl.classList.add("currentPlayingScoreLead")
+            }
+            currentPlayingScoreRedDifferenceEl.style.display = "block"
+            currentPlayingScoreBlueEl.classList.remove("currentPlayingScoreLead")
+            currentPlayingScoreBlueDifferenceEl.style.display = "none"
+        } else if (currentScoreRed === currentScoreBlue) {
+            // Set visibility and classes
+            currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
+            currentPlayingScoreRedDifferenceEl.style.display = "none"
+            currentPlayingScoreBlueEl.classList.remove("currentPlayingScoreLead")
+            currentPlayingScoreBlueDifferenceEl.style.display = "none"
+        } else if (currentScoreRed < currentScoreBlue) {
+            // Set visibility and classes
+            currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
+            currentPlayingScoreRedDifferenceEl.style.display = "block"
+            if (!currentPlayingScoreBlueEl.classList.has("currentPlayingScoreLead")) {
+                currentPlayingScoreBlueEl.classList.add("currentPlayingScoreLead")
+            }
+            currentPlayingScoreBlueDifferenceEl.style.display = "none"
         }
     }
 }
