@@ -96,6 +96,7 @@
 .currentScore {
     position: absolute; top: 1216px;
     font-family: "Solway"; font-weight: 500; font-size: 43px;
+    transition: 200ms ease-in-out;
 }
 .currentPlayingScoreLead { font-size: 48px; }
 #currentScoreRed { right: 1315px; }

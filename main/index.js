@@ -75,6 +75,8 @@ const blueUnstableRateEl = document.getElementById("blueUnstableRate")
 let currentRedUnstableRate, currentBlueUnstableRate
 
 // Scores
+const currentScoreRedEl = document.getElementById("currentScoreRed")
+const currentScoreBlueEl = document.getElementById("currentScoreBlue")
 const currentPlayingScoreRedEl = document.getElementById("currentPlayingScoreRed")
 const currentPlayingScoreRedDifferenceEl = document.getElementById("currentPlayingScoreRedDifference")
 const currentPlayingScoreBlueEl = document.getElementById("currentPlayingScoreBlue")
@@ -235,6 +237,14 @@ socket.onmessage = event => {
             // Width of moving score bar
             movingScoreBarRedEl.style.width = `${movingScoreBarRectangleWidth}px`
             movingScoreBarBlueEl.style.width = "0px"
+
+            // Set position of elements
+            if (currentScoreRedEl.getBoundingClientRect().width + 35 < movingScoreBarRectangleWidth) {
+                currentScoreRedEl.style.right = `${1280 + movingScoreBarRectangleWidth - currentScoreRedEl.getBoundingClientRect().width}px`
+            } else {
+                currentScoreRedEl.style.right = "1315px"
+            }
+            currentScoreBlueEl.style.left = "1315px"
         } else if (currentScoreRed === currentScoreBlue) {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
@@ -245,6 +255,10 @@ socket.onmessage = event => {
             // Width of moving score bar
             movingScoreBarRedEl.style.width = `0px`
             movingScoreBarBlueEl.style.width = "0px"
+
+            // Set position of elements
+            currentScoreRedEl.style.right = "1315px"
+            currentScoreBlueEl.style.left = "1315px"
         } else if (currentScoreRed < currentScoreBlue) {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
@@ -257,6 +271,14 @@ socket.onmessage = event => {
             // Width of moving score bar
             movingScoreBarRedEl.style.width = "0px"
             movingScoreBarBlueEl.style.width = `${movingScoreBarRectangleWidth}px`
+
+            // Set position of elements
+            currentScoreRedEl.style.right = "1315px"
+            if (currentScoreBlueEl.getBoundingClientRect().width + 35 < movingScoreBarRectangleWidth) {
+                currentScoreBlueEl.style.left = `${1280 + movingScoreBarRectangleWidth - currentScoreBlueEl.getBoundingClientRect().width}px`
+            } else {
+                currentScoreBlueEl.style.left = "1315px"
+            }
         }
     }
 }
