@@ -237,7 +237,7 @@ socket.onmessage = event => {
         // Create star
         function createStar(image) {
             let newStar = document.createElement("img")
-            newStar.setAttribute("src", `static/${image}.png`)
+            newStar.setAttribute("src", `../_shared/stars/${image}.png`)
             return newStar
         }
 
