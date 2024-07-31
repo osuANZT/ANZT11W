@@ -9,10 +9,30 @@
     --starsContainerLeftRight: 302px;
 }
 
+::-webkit-scrollbar { display: none; }
+
+@font-face {
+    font-family: "Aller";
+    font-weight: 700;
+    src: url("../fonts/Aller-Bold.ttf")
+}
+@font-face {
+    font-family: "Afacad";
+    src: url("../fonts/Afacad.ttf")
+}
+@font-face {
+    font-family: "Calibri";
+    src: url("../fonts/Calibri.ttf")
+}
 @font-face {
     font-family: "Solway";
     font-weight: 500;
     src: url("../fonts/Solway-Medium.ttf")
+}
+@font-face {
+    font-family: "Solway";
+    font-weight: 700;
+    src: url("../fonts/Solway-Bold.ttf")
 }
 
 /* Whole Page */
@@ -87,3 +107,57 @@
 
 /* Chat Display */
 #chatDisplay { height: 244px; }
+
+/* Now Playing */
+#nowPlaying {
+    position: absolute; left: 1px; bottom: 0;
+    width: 501px; height: 129px;
+}
+#nowPlayingBannerImage {
+    position: absolute; left: 7px; top: 9px;
+    width: 110px; height: 110px;
+    border: 2px solid black;
+}
+.nowPlayingLeftAlign { left: 131px; }
+#nowPlayingArtistSongName {
+    position: absolute; top: -2px;
+    width: 370px;
+    font-family: "Mestiza"; font-weight: 500; font-size: 21px;
+    letter-spacing: 0.5px;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+#nowPlayingDifficultyName {
+    position: absolute; top: 25px;
+    width: 370px;
+    font-family: "Afacad"; font-size: 19px;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+#nowPlayingStatsCSAROD {
+    position: absolute; top: 52px;
+    font-family: "Solway"; font-weight: 700; font-size: 17px;
+}
+#nowPlayingStatsCS, #nowPlayingStatsAR { margin-right: 15px; }
+#nowPlayingStatsSRBPMLEN {
+    position: absolute; top: 78px;
+    font-family: "Aller"; font-weight: 700; font-size: 17px;
+}
+#nowPlayingStatsSR, #nowPlayingStatsBPM { margin-right: 13px; }
+#nowPlayingMapper {
+    position: absolute; bottom: 8px; right: 9px;
+    font-family: "Calibri"; font-weight: bold; font-size: 18px;
+}
+#nowPlayingMod {
+    position: absolute; left: 503px; bottom: 0px;
+    display: flex; align-items: center;
+    height: 129px;
+    font-family: "Mestiza"; font-weight: 500; font-size: 23px;
+}
+#nowPlayingModImage { display: none; }
+#nowPlayingWarmupText { 
+    margin-left: 15px;
+    margin-bottom: 7px;
+}
