@@ -1,1 +1,339 @@
-[{"playerName":"_Crimsyn_","playerId":13165910},{"playerName":"-0-","playerId":17048567},{"playerName":"-buba","playerId":12637171},{"playerName":"-cy","playerId":12263141},{"playerName":"-k4t-","playerId":13134250},{"playerName":"-sephy","playerId":11380644},{"playerName":"0610","playerId":5319959},{"playerName":"3XCEED","playerId":13748308},{"playerName":"Aim Game","playerId":11895985},{"playerName":"aknzx","playerId":9938943},{"playerName":"AllBlue","playerId":3323638},{"playerName":"Applett","playerId":11184264},{"playerName":"Arbusion","playerId":11469447},{"playerName":"Aroph","playerId":12163190},{"playerName":"Arto","playerId":10275103},{"playerName":"ASecretBox","playerId":7341183},{"playerName":"aska","playerId":2913127},{"playerName":"beavr","playerId":29150979},{"playerName":"bromothymolblue","playerId":10302933},{"playerName":"Caitywolfy","playerId":12360211},{"playerName":"Clubby","playerId":12905443},{"playerName":"cyo","playerId":8195473},{"playerName":"ded24lol","playerId":14795251},{"playerName":"Delchoran","playerId":8530809},{"playerName":"Dkrakinsquid","playerId":23056909},{"playerName":"Dumb-Andy","playerId":20963631},{"playerName":"Fault","playerId":12784319},{"playerName":"Finnchy","playerId":18745529},{"playerName":"Galax_y","playerId":11596118},{"playerName":"Good Shroud","playerId":16617297},{"playerName":"hayley","playerId":17720805},{"playerName":"HR Best Mod","playerId":25414223},{"playerName":"jaminclaw","playerId":9447432},{"playerName":"JaradThePenguin","playerId":9750814},{"playerName":"JGLF","playerId":10665363},{"playerName":"Jordan The Bear","playerId":7477458},{"playerName":"Karai","playerId":17493476},{"playerName":"Korilak","playerId":7260014},{"playerName":"lukeazoid29","playerId":9965329},{"playerName":"Lukioto","playerId":16277145},{"playerName":"Marcu","playerId":11339614},{"playerName":"Midside","playerId":10760137},{"playerName":"mimitaya","playerId":12204360},{"playerName":"molneya","playerId":8945180},{"playerName":"Monk Gyatso","playerId":4012086},{"playerName":"Neavako","playerId":23863342},{"playerName":"Onmichi","playerId":19031441},{"playerName":"oslash","playerId":13228917},{"playerName":"Ozzy265","playerId":23179637},{"playerName":"Pepsi Max","playerId":7785655},{"playerName":"pii","playerId":13588932},{"playerName":"postmeridie","playerId":9470160},{"playerName":"PoYuTo","playerId":11858763},{"playerName":"Saiyku","playerId":13767572},{"playerName":"Snowpoint","playerId":9383377},{"playerName":"Stubbie","playerId":5717619},{"playerName":"termixo","playerId":9509358},{"playerName":"TheBrodiealex","playerId":14534410},{"playerName":"TheT0paz","playerId":11906790},{"playerName":"TheTopaz","playerId":7588992},{"playerName":"Tofu S","playerId":16870251},{"playerName":"Tonka Truck","playerId":8570559},{"playerName":"treyarch","playerId":12736534},{"playerName":"UnwaryTuba77","playerId":17133127},{"playerName":"william841201","playerId":30324721},{"playerName":"XimperiaL","playerId":11883100},{"playerName":"YelloJello","playerId":9285180},{"playerName":"yogurt hose","playerId":14754208},{"playerName":"Zyntex","playerId":11806306},{"playerName":"zzzbored","playerId":3222676}]
+[
+    {
+        "playerName": "_Crimsyn_",
+        "playerId": 13165910
+    },
+    {
+        "playerName": "-0-",
+        "playerId": 17048567,
+        "playerSeed": 51
+    },
+    {
+        "playerName": "-buba",
+        "playerId": 12637171,
+        "playerSeed": 42
+    },
+    {
+        "playerName": "-cy",
+        "playerId": 12263141,
+        "playerSeed": 41
+    },
+    {
+        "playerName": "-k4t-",
+        "playerId": 13134250,
+        "playerSeed": 17
+    },
+    {
+        "playerName": "-sephy",
+        "playerId": 11380644,
+        "playerSeed": 10
+    },
+    {
+        "playerName": "0610",
+        "playerId": 5319959,
+        "playerSeed": 13
+    },
+    {
+        "playerName": "3XCEED",
+        "playerId": 13748308
+    },
+    {
+        "playerName": "Aim Game",
+        "playerId": 11895985,
+        "playerSeed": 22
+    },
+    {
+        "playerName": "aknzx",
+        "playerId": 9938943,
+        "playerSeed": 5
+    },
+    {
+        "playerName": "AllBlue",
+        "playerId": 3323638,
+        "playerSeed": 15
+    },
+    {
+        "playerName": "Applett",
+        "playerId": 11184264,
+        "playerSeed": 57
+    },
+    {
+        "playerName": "Arbusion",
+        "playerId": 11469447,
+        "playerSeed": 9
+    },
+    {
+        "playerName": "Aroph",
+        "playerId": 12163190,
+        "playerSeed": 3
+    },
+    {
+        "playerName": "Arto",
+        "playerId": 10275103,
+        "playerSeed": 38
+    },
+    {
+        "playerName": "ASecretBox",
+        "playerId": 7341183
+    },
+    {
+        "playerName": "aska",
+        "playerId": 2913127,
+        "playerSeed": 53
+    },
+    {
+        "playerName": "beavr",
+        "playerId": 29150979
+    },
+    {
+        "playerName": "bromothymolblue",
+        "playerId": 10302933,
+        "playerSeed": 11
+    },
+    {
+        "playerName": "Caitywolfy",
+        "playerId": 12360211,
+        "playerSeed": 47
+    },
+    {
+        "playerName": "Clubby",
+        "playerId": 12905443
+    },
+    {
+        "playerName": "cyo",
+        "playerId": 8195473,
+        "playerSeed": 2
+    },
+    {
+        "playerName": "ded24lol",
+        "playerId": 14795251
+    },
+    {
+        "playerName": "Delchoran",
+        "playerId": 8530809,
+        "playerSeed": 21
+    },
+    {
+        "playerName": "Dkrakinsquid",
+        "playerId": 23056909,
+        "playerSeed": 54
+    },
+    {
+        "playerName": "Dumb-Andy",
+        "playerId": 20963631,
+        "playerSeed": 6
+    },
+    {
+        "playerName": "Fault",
+        "playerId": 12784319,
+        "playerSeed": 18
+    },
+    {
+        "playerName": "Finnchy",
+        "playerId": 18745529,
+        "playerSeed": 23
+    },
+    {
+        "playerName": "Galax_y",
+        "playerId": 11596118,
+        "playerSeed": 24
+    },
+    {
+        "playerName": "Good Shroud",
+        "playerId": 16617297,
+        "playerSeed": 27
+    },
+    {
+        "playerName": "hayley",
+        "playerId": 17720805,
+        "playerSeed": 16
+    },
+    {
+        "playerName": "HR Best Mod",
+        "playerId": 25414223,
+        "playerSeed": 50
+    },
+    {
+        "playerName": "jaminclaw",
+        "playerId": 9447432,
+        "playerSeed": 52
+    },
+    {
+        "playerName": "JaradThePenguin",
+        "playerId": 9750814,
+        "playerSeed": 56
+    },
+    {
+        "playerName": "JGLF",
+        "playerId": 10665363,
+        "playerSeed": 12
+    },
+    {
+        "playerName": "Jordan The Bear",
+        "playerId": 7477458
+    },
+    {
+        "playerName": "Karai",
+        "playerId": 17493476
+    },
+    {
+        "playerName": "Korilak",
+        "playerId": 7260014,
+        "playerSeed": 33
+    },
+    {
+        "playerName": "lukeazoid29",
+        "playerId": 9965329,
+        "playerSeed": 49
+    },
+    {
+        "playerName": "Lukioto",
+        "playerId": 16277145,
+        "playerSeed": 26
+    },
+    {
+        "playerName": "Marcu",
+        "playerId": 11339614,
+        "playerSeed": 32
+    },
+    {
+        "playerName": "Midside",
+        "playerId": 10760137
+    },
+    {
+        "playerName": "mimitaya",
+        "playerId": 12204360,
+        "playerSeed": 46
+    },
+    {
+        "playerName": "molneya",
+        "playerId": 8945180,
+        "playerSeed": 45
+    },
+    {
+        "playerName": "Monk Gyatso",
+        "playerId": 4012086,
+        "playerSeed": 31
+    },
+    {
+        "playerName": "Neavako",
+        "playerId": 23863342,
+        "playerSeed": 30
+    },
+    {
+        "playerName": "Onmichi",
+        "playerId": 19031441,
+        "playerSeed": 44
+    },
+    {
+        "playerName": "oslash",
+        "playerId": 13228917,
+        "playerSeed": 7
+    },
+    {
+        "playerName": "Ozzy265",
+        "playerId": 23179637,
+        "playerSeed": 8
+    },
+    {
+        "playerName": "Pepsi Max",
+        "playerId": 7785655,
+        "playerSeed": 20
+    },
+    {
+        "playerName": "pii",
+        "playerId": 13588932,
+        "playerSeed": 23
+    },
+    {
+        "playerName": "postmeridie",
+        "playerId": 9470160
+    },
+    {
+        "playerName": "PoYuTo",
+        "playerId": 11858763,
+        "playerSeed": 14
+    },
+    {
+        "playerName": "Saiyku",
+        "playerId": 13767572
+    },
+    {
+        "playerName": "Snowpoint",
+        "playerId": 9383377,
+        "playerSeed": 29
+    },
+    {
+        "playerName": "Stubbie",
+        "playerId": 5717619,
+        "playerSeed": 43
+    },
+    {
+        "playerName": "termixo",
+        "playerId": 9509358,
+        "playerSeed": 25
+    },
+    {
+        "playerName": "TheBrodiealex",
+        "playerId": 14534410,
+        "playerSeed": 39
+    },
+    {
+        "playerName": "TheT0paz",
+        "playerId": 11906790,
+        "playerSeed": 36
+    },
+    {
+        "playerName": "TheTopaz",
+        "playerId": 7588992,
+        "playerSeed": 19
+    },
+    {
+        "playerName": "Tofu S",
+        "playerId": 16870251,
+        "playerSeed": 55
+    },
+    {
+        "playerName": "Tonka Truck",
+        "playerId": 8570559,
+        "playerSeed": 40
+    },
+    {
+        "playerName": "treyarch",
+        "playerId": 12736534,
+        "playerSeed": 1
+    },
+    {
+        "playerName": "UnwaryTuba77",
+        "playerId": 17133127,
+        "playerSeed": 28
+    },
+    {
+        "playerName": "william841201",
+        "playerId": 30324721
+    },
+    {
+        "playerName": "XimperiaL",
+        "playerId": 11883100,
+        "playerSeed": 35
+    },
+    {
+        "playerName": "Mr Business",
+        "playerId": 9285180,
+        "playerSeed": 37
+    },
+    {
+        "playerName": "yogurt hose",
+        "playerId": 14754208
+    },
+    {
+        "playerName": "Zyntex",
+        "playerId": 11806306,
+        "playerSeed": 4
+    },
+    {
+        "playerName": "zzzbored",
+        "playerId": 3222676,
+        "playerSeed": 48
+    }
+]
