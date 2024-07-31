@@ -81,6 +81,10 @@ const currentPlayingScoreBlueEl = document.getElementById("currentPlayingScoreBl
 const currentPlayingScoreBlueDifferenceEl = document.getElementById("currentPlayingScoreBlueDifference")
 let currentScoreRed, currentScoreBlue, currentScoreDelta
 
+// Moving score bars
+const movingScoreBarRedEl = document.getElementById("movingScoreBarRed")
+const movingScoreBarBlueEl = document.getElementById("movingScoreBarBlue")
+
 // Countups
 const countUps = {
     redUnstableRate: new CountUp(redUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
@@ -215,6 +219,10 @@ socket.onmessage = event => {
         countUps.playingScoreRedDelta.update(currentScoreDelta)
         countUps.playingScoreBlueDelta.update(currentScoreDelta)
 
+        // Bar percentage
+        let movingScoreBarDifferencePercent = Math.min(currentScoreDelta / 1000000, 1)
+        let movingScoreBarRectangleWidth = Math.min(Math.pow(movingScoreBarDifferencePercent, 0.5)* 470, 470)
+
         if (currentScoreRed > currentScoreBlue) {
             // Set visibility and classes
             if (!currentPlayingScoreRedEl.classList.has("currentPlayingScoreLead")) {
@@ -223,12 +231,20 @@ socket.onmessage = event => {
             currentPlayingScoreRedDifferenceEl.style.display = "block"
             currentPlayingScoreBlueEl.classList.remove("currentPlayingScoreLead")
             currentPlayingScoreBlueDifferenceEl.style.display = "none"
+
+            // Width of moving score bar
+            movingScoreBarRedEl.style.width = `${movingScoreBarRectangleWidth}px`
+            movingScoreBarBlueEl.style.width = "0px"
         } else if (currentScoreRed === currentScoreBlue) {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
             currentPlayingScoreRedDifferenceEl.style.display = "none"
             currentPlayingScoreBlueEl.classList.remove("currentPlayingScoreLead")
             currentPlayingScoreBlueDifferenceEl.style.display = "none"
+
+            // Width of moving score bar
+            movingScoreBarRedEl.style.width = `0px`
+            movingScoreBarBlueEl.style.width = "0px"
         } else if (currentScoreRed < currentScoreBlue) {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
@@ -237,6 +253,10 @@ socket.onmessage = event => {
                 currentPlayingScoreBlueEl.classList.add("currentPlayingScoreLead")
             }
             currentPlayingScoreBlueDifferenceEl.style.display = "none"
+
+            // Width of moving score bar
+            movingScoreBarRedEl.style.width = "0px"
+            movingScoreBarBlueEl.style.width = `${movingScoreBarRectangleWidth}px`
         }
     }
 }
