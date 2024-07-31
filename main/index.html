@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="../_shared/deps/reconnecting-websocket.min.js"></script>
+    <script src="../_shared/deps/countUp.js"></script>
 </head>
 <body>
     <div id="main">
@@ -45,8 +46,10 @@
         </div>
 
         <!-- Unstable Rate -->
-        <div class="unstableRate" id="redUnstableRate">123.45</div>
-        <div class="unstableRate" id="blueUnstableRate"></div>
+        <div id="unstableRates">
+            <div class="unstableRate" id="redUnstableRate">123.45</div>
+            <div class="unstableRate" id="blueUnstableRate"></div>
+        </div>
 
         <!-- Moving score bar -->
         <div class="movingScoreBar" id="movingScoreBarRed"></div>

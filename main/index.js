@@ -64,6 +64,19 @@ const blueNon300CountsEl = document.getElementById("blueNon300Counts")
 const blue100CountEl = document.getElementById("blue100Count")
 const blue50CountEl = document.getElementById("blue50Count")
 const blueMissCountEl = document.getElementById("blueMissCount")
+let currentRed100Count, currentRed50Count, currentRedMissCount, currentBlue100Count, currentBlue50Count, currentBlueMissCount
+
+// Unstable rate
+const unstableRatesEl = document.getElementById("unstableRates")
+const redUnstableRateEl = document.getElementById("redUnstableRate")
+const blueUnstableRateEl = document.getElementById("blueUnstableRate")
+let currentRedUnstableRate, currentBlueUnstableRate
+
+// Countups
+const countUps = {
+    redUnstableRate: new CountUp(redUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    blueUnstableRate: new CountUp(blueUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." })
+}
 
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -132,31 +145,50 @@ socket.onmessage = event => {
         if (currentIPCState === 2 || currentIPCState === 3) {
             redNon300CountsEl.style.opacity = 1
             blueNon300CountsEl.style.opacity = 1
+            unstableRatesEl.style.opacity = 1
         } else {
             redNon300CountsEl.style.opacity = 0
             blueNon300CountsEl.style.opacity = 0
+            unstableRatesEl.style.opacity = 0
         }
     }
 
-    // Non 100 counts
+
     if (currentIPCState === 2 || currentIPCState === 3) {
-        if (red100CountEl.innerText !== data.tourney.ipcClients[0].gameplay.hits[100]) {
-            red100CountEl.innerText = data.tourney.ipcClients[0].gameplay.hits[100]
+        // Non 300 counts
+        if (currentRed100Count !== data.tourney.ipcClients[0].gameplay.hits[100]) {
+            currentRed100Count = data.tourney.ipcClients[0].gameplay.hits[100]
+            red100CountEl.innerText = currentRed100Count
         }
-        if (red50CountEl.innerText !== data.tourney.ipcClients[0].gameplay.hits[50]) {
-            red50CountEl.innerText = data.tourney.ipcClients[0].gameplay.hits[50]
+        if (currentRed50Count !== data.tourney.ipcClients[0].gameplay.hits[50]) {
+            currentRed50Count = data.tourney.ipcClients[0].gameplay.hits[50]
+            red50CountEl.innerText = currentRed50Count
         }
-        if (redMissCountEl.innerText !== data.tourney.ipcClients[0].gameplay.hits[0]) {
-            redMissCountEl.innerText = data.tourney.ipcClients[0].gameplay.hits[0]
+        if (currentRedMissCount !== data.tourney.ipcClients[0].gameplay.hits[0]) {
+            currentRedMissCount = data.tourney.ipcClients[0].gameplay.hits[0]
+            redMissCountEl.innerText = currentRedMissCount
         }
-        if (blue100CountEl.innerText !== data.tourney.ipcClients[1].gameplay.hits[100]) {
-            blue100CountEl.innerText = data.tourney.ipcClients[1].gameplay.hits[100]
+        if (currentBlue100Count !== data.tourney.ipcClients[1].gameplay.hits[100]) {
+            currentBlue100Count = data.tourney.ipcClients[1].gameplay.hits[100]
+            blue100CountEl.innerText = currentBlue100Count
         }
-        if (blue50CountEl.innerText !== data.tourney.ipcClients[1].gameplay.hits[50]) {
-            blue50CountEl.innerText = data.tourney.ipcClients[1].gameplay.hits[50]
+        if (currentBlue50Count !== data.tourney.ipcClients[1].gameplay.hits[50]) {
+            currentBlue50Count = data.tourney.ipcClients[1].gameplay.hits[50]
+            blue50CountEl.innerText = currentBlue50Count
         }
-        if (blueMissCountEl.innerText !== data.tourney.ipcClients[1].gameplay.hits[0]) {
-            blueMissCountEl.innerText = data.tourney.ipcClients[1].gameplay.hits[0]
+        if (currentBlueMissCount !== data.tourney.ipcClients[1].gameplay.hits[0]) {
+            currentBlueMissCount = data.tourney.ipcClients[1].gameplay.hits[0]
+            blueMissCountEl.innerText = currentBlueMissCount
+        }
+
+        // Unstable rates
+        if (currentRedUnstableRate !== data.tourney.ipcClients[0].gameplay.hits.unstableRate) {
+            currentRedUnstableRate = data.tourney.ipcClients[0].gameplay.hits.unstableRate
+            countUps.redUnstableRate.update(currentRedUnstableRate)
+        }
+        if (currentBlueUnstableRate !== data.tourney.ipcClients[1].gameplay.hits.unstableRate) {
+            currentBlueUnstableRate = data.tourney.ipcClients[1].gameplay.hits.unstableRate
+            countUps.blueUnstableRate.update(currentBlueUnstableRate)
         }
     }
 }
