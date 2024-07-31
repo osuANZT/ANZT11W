@@ -117,7 +117,11 @@
 #currentPlayingScoreRedDifference { text-align: right; }
 
 /* Chat Display */
-#chatDisplay { height: 244px; }
+#chatDisplay { 
+    height: 244px; 
+    opacity: 1;
+    transition: 500ms ease-in-out;
+}
 
 /* Now Playing */
 #nowPlaying {
