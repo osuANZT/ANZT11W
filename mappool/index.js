@@ -35,7 +35,7 @@ async function getMappool() {
 
         // Image
         const panelImage = document.createElement("img")
-        panelImage.setAttribute("src", `static/panels/${currentMap.mod}panel.png`)
+        panelImage.setAttribute("src", `../_shared/panels/${currentMap.mod}panel.png`)
 
         // Map background Image
         const mapBackgroundImage = document.createElement("div")
@@ -103,12 +103,12 @@ async function getMappool() {
         // Banned panel
         const bannedPanel = document.createElement("img")
         bannedPanel.classList.add("bannedPanel")
-        bannedPanel.setAttribute("src", "static/panels/BANNEDpanel.png")
+        bannedPanel.setAttribute("src", "../_shared/panels/BANNEDpanel.png")
 
         // Played panel
         const playedPanel = document.createElement("img")
         playedPanel.classList.add("playedPanel")
-        playedPanel.setAttribute("src", "static/panels/PLAYEDpanel.png")
+        playedPanel.setAttribute("src", "../_shared/panels/PLAYEDpanel.png")
 
         // Action image
         const actionImage = document.createElement("img")
@@ -466,7 +466,7 @@ async function getAndAppendMatchHistory() {
             // Panel Image
             const matchHistoryPanelImage = document.createElement("img")
             matchHistoryPanelImage.classList.add("matchHistoryPanelImage")
-            matchHistoryPanelImage.setAttribute("src", "static/panels/MatchHistoryPanel.png")
+            matchHistoryPanelImage.setAttribute("src", "../_shared/panels/MatchHistoryPanel.png")
             matchHistoryPanel.append(matchHistoryPanelImage)
 
             // Background Image
@@ -483,7 +483,7 @@ async function getAndAppendMatchHistory() {
             // Mod
             const matchHistoryPanelMod = document.createElement("img")
             matchHistoryPanelMod.classList.add("matchHistoryPanelMod")
-            matchHistoryPanelMod.setAttribute("src", `static/match-history/${currentMap.mod}${currentMap.order}.png`)
+            matchHistoryPanelMod.setAttribute("src", `../_shared/match-history/${currentMap.mod}${currentMap.order}.png`)
             matchHistoryPanel.append(matchHistoryPanelMod)
 
             // Get scores
