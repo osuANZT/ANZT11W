@@ -132,6 +132,8 @@
     position: absolute; left: 7px; top: 9px;
     width: 110px; height: 110px;
     border: 2px solid black;
+    background-size: cover;
+    background-position: center;
 }
 .nowPlayingLeftAlign { left: 131px; }
 #nowPlayingArtistSongName {

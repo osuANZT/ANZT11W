@@ -106,6 +106,25 @@ const countUps = {
 const chatDisplay = document.getElementById("chatDisplay")
 let chatLen = 0
 
+// Now Playing
+const nowPlayingPanelImageEl = document.getElementById("nowPlayingPanelImage")
+const nowPlayingBannerImageEl = document.getElementById("nowPlayingBannerImage")
+const nowPlayingArtistSongNameEl = document.getElementById("nowPlayingArtistSongName")
+const nowPlayingDifficultyNameEl = document.getElementById("nowPlayingDifficultyName")
+const nowPlayingMapperEl = document.getElementById("nowPlayingMapper")
+// Stats
+const nowPlayingStatsCSEl = document.getElementById("nowPlayingStatsCS")
+const nowPlayingStatsAREl = document.getElementById("nowPlayingStatsAR")
+const nowPlayingStatsODEl = document.getElementById("nowPlayingStatsOD")
+const nowPlayingStatsSREl = document.getElementById("nowPlayingStatsSR")
+const nowPlayingStatsBPMEl = document.getElementById("nowPlayingStatsBPM")
+const nowPlayingStatsLENEl = document.getElementById("nowPlayingStatsLEN")
+let nowPlayingID, nowPlayingMd5
+let foundMapInMappool = false
+// Now Playing Mod
+const nowPlayingModImage = document.getElementById("nowPlayingModImage")
+const nowPlayingWarmupTextEl = document.getElementById("nowPlayingWarmupText")
+
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
     console.log(data)
@@ -347,5 +366,46 @@ socket.onmessage = event => {
         chatDisplay.append(fragment)
         chatLen = data.tourney.manager.chat.length;
         chatDisplay.scrollTop = chatDisplay.scrollHeight;
-    }  
+    }
+
+    // Beatmap information
+    if ((nowPlayingID !== data.menu.bm.id || nowPlayingMd5 !== data.menu.bm.md5) && nowPlayingID !== 0) {
+        nowPlayingID = data.menu.bm.id
+        nowPlayingMd5 = data.menu.bm.md5
+        foundMapInMappool = false
+
+        nowPlayingBannerImageEl.style.backgroundImage = `https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg`
+        nowPlayingArtistSongNameEl.innerText = `${data.menu.bm.metadata.artist} - ${data.menu.bm.metadata.title}`
+        nowPlayingDifficultyNameEl.innerText = `[${data.menu.bm.metadata.difficulty}]`
+        nowPlayingMapperEl.innerText = data.menu.bm.metadata.mapper
+
+        const currentMap = findMapInMapool(nowPlayingID)
+        if (currentMap) {
+            // Other stats
+            nowPlayingStatsCSEl = Math.round(parseFloat(currentMap.cs) * 10) / 10
+            nowPlayingStatsAREl = Math.round(parseFloat(currentMap.ar) * 10) / 10
+            nowPlayingStatsODEl = Math.round(parseFloat(currentMap.od) * 10) / 10
+            nowPlayingStatsSREl = Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100
+            nowPlayingStatsBPMEl = Math.round(parseFloat(currentMap.bpm) * 10) / 10
+            // Length
+            let totalSeconds = currentMap.songLength
+            const minutes = Math.floor(totalSeconds / 60)
+            const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0')
+            nowPlayingStatsLENEl.innerText = `${minutes}:${seconds}`
+            // Panel Image
+            nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/${currentMap.mod}panel.png`)
+            // Mod Image
+            nowPlayingModImage.setAttribute("src", `${currentMap.mod}${(currentMap.mod === "TB")? "" : currentMap.order}`)
+            nowPlayingWarmupTextEl.style.display = "none"
+        }  else {
+            // Panel Image
+            nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/NManel.png`)
+
+            // Mod Image
+            nowPlayingModImage.style.display = "none"
+            if (warmupMode) nowPlayingWarmupTextEl.innerText = "warmup"
+            else nowPlayingWarmupTextEl.innerText = ""
+            nowPlayingWarmupTextEl.style.display = "block"
+        }
+    }
 }
