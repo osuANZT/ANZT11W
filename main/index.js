@@ -381,17 +381,14 @@ socket.onmessage = event => {
 
         const currentMap = findMapInMapool(nowPlayingID)
         if (currentMap) {
+            foundMapInMappool = true
             // Other stats
             nowPlayingStatsCSEl = Math.round(parseFloat(currentMap.cs) * 10) / 10
             nowPlayingStatsAREl = Math.round(parseFloat(currentMap.ar) * 10) / 10
             nowPlayingStatsODEl = Math.round(parseFloat(currentMap.od) * 10) / 10
             nowPlayingStatsSREl = Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100
             nowPlayingStatsBPMEl = Math.round(parseFloat(currentMap.bpm) * 10) / 10
-            // Length
-            let totalSeconds = currentMap.songLength
-            const minutes = Math.floor(totalSeconds / 60)
-            const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0')
-            nowPlayingStatsLENEl.innerText = `${minutes}:${seconds}`
+            displayLength(parseInt(currentMap.songLength))
             // Panel Image
             nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/${currentMap.mod}panel.png`)
             // Mod Image
@@ -408,4 +405,21 @@ socket.onmessage = event => {
             nowPlayingWarmupTextEl.style.display = "block"
         }
     }
+
+    if (!foundMapInMappool) {
+        nowPlayingStatsCSEl.innerText = data.menu.bm.stats.CS
+        nowPlayingStatsAREl.innerText = data.menu.bm.stats.AR
+        nowPlayingStatsODEl.innerText = data.menu.bm.stats.OD
+        nowPlayingStatsSREl.innerText = data.menu.bm.stats.fullSR
+        nowPlayingStatsBPMEl.innerText = data.menu.bm.stats.BPM.common
+        nowPlayingStatsLENEl.innerText = displayLength(parseInt(data.menu.bm.time.full / 1000))
+    }
+}
+
+function displayLength(songLengthSeconds) {
+    // Length
+    let totalSeconds = songLengthSeconds
+    const minutes = Math.floor(totalSeconds / 60)
+    const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0')
+    nowPlayingStatsLENEl.innerText = `${minutes}:${seconds}`
 }
