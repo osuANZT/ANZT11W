@@ -375,6 +375,7 @@ socket.onmessage = event => {
         foundMapInMappool = false
         currentlyShowingMod = false
         currentOverrideModText = false
+        setNowPlayingSideOverride = false
 
         nowPlayingBannerImageEl.style.backgroundImage = `https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg`
         nowPlayingArtistSongNameEl.innerText = `${data.menu.bm.metadata.artist} - ${data.menu.bm.metadata.title}`
@@ -475,3 +476,57 @@ function showDefaultNowPlayingModText() {
         nowPlayingWarmupTextEl.innerText = setCurrentDefaultNowPlayingModText
     }
 }
+
+// Set now playing side
+const nowPlayingEl = document.getElementById("nowPlaying")
+const nowPlayingModEl = document.getElementById("nowPlayingMod")
+let setNowPlayingSideOverride = false
+function setNowPlayingSide(side) {
+    setNowPlayingSideOverride = true
+    if (side === "default") {
+        let currentSide = getCookie("currentPicker")
+        if (currentSide === "right") side = "right"
+        else side = "left"
+    }
+
+    if (side === "left") {
+        nowPlayingEl.style.left = "1px"
+        nowPlayingEl.style.right = "unset"
+        nowPlayingModEl.style.left = "503px"
+        nowPlayingModEl.style.right = "unset"
+    } else if (side === "right") {
+        nowPlayingEl.style.left = "unset"
+        nowPlayingEl.style.right = "1px"
+        nowPlayingModEl.style.left = "unset"
+        nowPlayingModEl.style.right = "503px"
+    }
+}
+
+// Get Cookie
+function getCookie(cname) {
+    let name = cname + "="
+    let ca = document.cookie.split(';')
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i]
+        while (c.charAt(0) == ' ') c = c.substring(1)
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+setTimeout(() => {
+    let currentSide = getCookie("currentPicker")
+    if (!setNowPlayingSideOverride) {
+        if (currentSide === "left") {
+            nowPlayingEl.style.left = "1px"
+            nowPlayingEl.style.right = "unset"
+            nowPlayingModEl.style.left = "503px"
+            nowPlayingModEl.style.right = "unset"
+        } else if (currentSide === "right") {
+            nowPlayingEl.style.left = "unset"
+            nowPlayingEl.style.right = "1px"
+            nowPlayingModEl.style.left = "unset"
+            nowPlayingModEl.style.right = "503px"
+        }
+    }
+}, 500)

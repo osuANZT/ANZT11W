@@ -377,6 +377,8 @@ function mapClickEvent() {
 
         previousPickTile = currentPickTile
         currentPickTile = this
+        
+        document.cookie = `currentPicker=${team}`
     } else if (action === "ban") {
         this.children[7].style.opacity = 1
         this.children[8].style.opacity = 0
