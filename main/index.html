@@ -74,8 +74,8 @@
 
         <!-- Now Playing Left -->
         <div id="nowPlaying">
-            <img src="../_shared/panels/DTpanel.png">
-            <img id="nowPlayingBannerImage" src="">
+            <img id="nowPlayingPanelImage" src="../_shared/panels/DTpanel.png">
+            <div id="nowPlayingBannerImage"></div>
             <div class="nowPlayingLeftAlign" id="nowPlayingArtistSongName">Halozy - Staggering Spirit, Keine’s aaaaaaaaaaaaaaa</div>
             <div class="nowPlayingLeftAlign" id="nowPlayingDifficultyName">[Absurd]</div>
             <div class="nowPlayingLeftAlign" id="nowPlayingStatsCSAROD">
@@ -94,6 +94,27 @@
             <img id="nowPlayingModImage" src="../_shared/match-history/DT1.png">
             <div id="nowPlayingWarmupText">warmup</div>
         </div>
+    </div>
+
+    <div id="sideBar">
+        <section class="sideBarSection" id="setNowPlayingModSection">
+            <h1>Set Now Playing Mod</h1>
+            <button class="fullSizeButotn" onclick="setCurrentModOfMap()">Set current mod of map</button>
+            <button class="fullSizeButotn" onclick="showNowPlayingModText('warmup')">Show warmup text</button>
+            <button class="fullSizeButotn" onclick="showNowPlayingModText('')">Show no text</button>
+
+            <p>Please note that this will reset to the default option you selected: <span id="currentDefaultOption">warmup</span></p>
+            <button class="fullSizeButotn" onclick="setDefualtNowPlayingModText('warmup')">Set default text to no text</button>
+            <button class="fullSizeButotn" onclick="setDefualtNowPlayingModText('none')">Set default text to warmup</button>
+        </section>
+        <section class="sideBarSection" id="setNowPlayingSideSection">
+            <h1>Which side should the now playing be on?</h1>
+            <button class="fullSizeButotn" onclick="setNowPlayingSide('left')">Left Side</button>
+            <button class="fullSizeButotn" onclick="setNowPlayingSide('right')">Right Side</button>
+            <button class="fullSizeButotn" onclick="setNowPlayingSide('default')">Default Side</button>
+            <p>Please note that the default side will USUALLY be whatever side picked last. Of course, you can override this with the buttons above.</p>
+            <p>This will go to the default side after every map change. If there is no default side, it will go to the left side.</p>
+        </section>
     </div>
 
     <script src="index.js"></script>

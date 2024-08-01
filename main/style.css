@@ -25,6 +25,21 @@
     src: url("../fonts/Calibri.ttf")
 }
 @font-face {
+    font-family: "Mestiza";
+    font-weight: 500;
+    src: url("../fonts/Mestiza-Medium.otf")
+}
+@font-face {
+    font-family: "Mestiza";
+    font-weight: 700;
+    src: url("../fonts/Mestiza-Bold.otf")
+}
+@font-face {
+    font-family: "Mestiza";
+    font-weight: 900;
+    src: url("../fonts/Mestiza-Black.otf")
+}
+@font-face {
     font-family: "Solway";
     font-weight: 500;
     src: url("../fonts/Solway-Medium.ttf")
@@ -142,7 +157,7 @@
     font-family: "Mestiza"; font-weight: 500; font-size: 21px;
     letter-spacing: 0.5px;
     text-overflow: ellipsis;
-    text-wrap: nowrap;
+    text-overflow: nowrap;
     overflow: hidden;
 }
 #nowPlayingDifficultyName {
@@ -150,7 +165,7 @@
     width: 370px;
     font-family: "Afacad"; font-size: 19px;
     text-overflow: ellipsis;
-    text-wrap: nowrap;
+    text-overflow: nowrap;
     overflow: hidden;
 }
 #nowPlayingStatsCSAROD {
@@ -178,3 +193,32 @@
     margin-left: 15px;
     margin-bottom: 7px;
 }
+
+/* Sidebar */
+#sideBar {
+    position: absolute; left: 2560px; top: 0;
+    width: 300px; height: 1440px;
+}
+/* Helper classes */
+h1 {
+    font-family: "Mestiza"; font-weight: 900; font-size: 24px;
+    width: 250px;
+    text-align: center;
+}
+.sideBarSection {
+    margin: 15px 0 0 25px;
+    width: 250px;
+}
+.fullSizeButotn {
+    width: 250px; height: 50px;
+    margin-bottom: 7px;
+    border-radius: 10px;
+    font-family: "Mestiza"; font-weight: 500; font-size: 18px;
+}
+p {
+    width: 250px;
+    text-align: center;
+    font-family: "Mestiza"; font-weight: 500;
+}
+/* Set now playing mod section */
+#currentDefaultOption { font-weight: 700; }

@@ -122,7 +122,7 @@ const nowPlayingStatsLENEl = document.getElementById("nowPlayingStatsLEN")
 let nowPlayingID, nowPlayingMd5
 let foundMapInMappool = false
 // Now Playing Mod
-const nowPlayingModImage = document.getElementById("nowPlayingModImage")
+const nowPlayingModImageEl = document.getElementById("nowPlayingModImage")
 const nowPlayingWarmupTextEl = document.getElementById("nowPlayingWarmupText")
 
 socket.onmessage = event => {
@@ -373,6 +373,8 @@ socket.onmessage = event => {
         nowPlayingID = data.menu.bm.id
         nowPlayingMd5 = data.menu.bm.md5
         foundMapInMappool = false
+        currentlyShowingMod = false
+        currentOverrideModText = false
 
         nowPlayingBannerImageEl.style.backgroundImage = `https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg`
         nowPlayingArtistSongNameEl.innerText = `${data.menu.bm.metadata.artist} - ${data.menu.bm.metadata.title}`
@@ -392,17 +394,21 @@ socket.onmessage = event => {
             // Panel Image
             nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/${currentMap.mod}panel.png`)
             // Mod Image
-            nowPlayingModImage.setAttribute("src", `${currentMap.mod}${(currentMap.mod === "TB")? "" : currentMap.order}`)
+            nowPlayingModImageEl.setAttribute("src", `${currentMap.mod}${(currentMap.mod === "TB")? "" : currentMap.order}`)
             nowPlayingWarmupTextEl.style.display = "none"
+            setCurrentModOfMap()
+            currentlyShowingMod = true
         }  else {
             // Panel Image
             nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/NManel.png`)
 
             // Mod Image
-            nowPlayingModImage.style.display = "none"
+            nowPlayingModImageEl.style.display = "none"
             if (warmupMode) nowPlayingWarmupTextEl.innerText = "warmup"
             else nowPlayingWarmupTextEl.innerText = ""
             nowPlayingWarmupTextEl.style.display = "block"
+
+            setDefualtNowPlayingModText()
         }
     }
 
@@ -422,4 +428,50 @@ function displayLength(songLengthSeconds) {
     const minutes = Math.floor(totalSeconds / 60)
     const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0')
     nowPlayingStatsLENEl.innerText = `${minutes}:${seconds}`
+}
+
+
+// SIDEBAR FUNCTIONS
+// Set current mod of map
+let currentlyShowingMod = false
+function setCurrentModOfMap() {
+    // Find map
+    let currentMap = findMapInMapool(nowplayingID)
+    if (currentMap) {
+        nowPlayingModImageEl.setAttribute("src", `${currentMap.mod}${(currentMap.mod !== "TB")? currentMap.order : ""}`)
+        nowPlayingWarmupTextEl.style.display = "none"
+        currentlyShowingMod = true
+    } else {
+        showDefaultNowPlayingModText()
+        currentlyShowingMod = false
+    }
+}
+
+// Show now playing mod text
+let currentOverrideModText = false
+function showNowPlayingModText(text) {
+    nowPlayingModImageEl.style.display = "none"
+    nowPlayingWarmupTextEl.style.display = "block"
+    nowPlayingWarmupTextEl.innerText = text
+    currentOverrideModText = true
+}
+
+// Set default now playing mod text
+let setCurrentDefaultNowPlayingModText
+function setDefualtNowPlayingModText(text) {
+    setCurrentDefaultNowPlayingModText = text
+    if (!currentOverrideModText && !currentlyShowingMod) {
+        showDefaultNowPlayingModText()
+    }
+}
+
+// Show current default text
+function showDefaultNowPlayingModText() {
+    nowPlayingModImageEl.style.display = "none"
+    nowPlayingWarmupTextEl.style.display = "block"
+    if (setCurrentDefaultNowPlayingModText === "none") {
+        nowPlayingWarmupTextEl.innerText = ""
+    } else if (setCurrentDefaultNowPlayingModText === "warmup") {
+        nowPlayingWarmupTextEl.innerText = setCurrentDefaultNowPlayingModText
+    }
 }
