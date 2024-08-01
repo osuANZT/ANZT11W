@@ -13,6 +13,9 @@ let allBeatmaps
 const matchHistoryTimelineContainerEl = document.getElementById("matchHistoryTimelineContainer")
 const matchHistoryTimelineBottomEl = document.getElementById("matchHistoryTimelineBottom")
 
+// Sponsor
+const sponsorEl = document.getElementById("sponsor")
+
 // Get mappool
 async function getMappool() {
     const response = await fetch("../_data/beatmaps.json")
@@ -130,8 +133,12 @@ async function getMappool() {
         }
     }
 
-    matchHistoryTimelineContainerEl.style.top = `${HDPanelsEl.childElementCount * 139 + 246}px`
-    matchHistoryTimelineBottomEl.style.top = `${HDPanelsEl.childElementCount * 139 + 527}px`
+    // Match history section
+    matchHistoryTimelineContainerEl.style.top = `${HDPanelsEl.childElementCount * 142 + 246}px`
+    matchHistoryTimelineBottomEl.style.top = `${HDPanelsEl.childElementCount * 142 + 527}px`
+
+    // Top section
+    sponsorEl.style.top = `${(DTPanelsEl.childElementCount + 1) * 142 + 250}px`
 }
 
 getMappool()
@@ -377,7 +384,7 @@ function mapClickEvent() {
 
         previousPickTile = currentPickTile
         currentPickTile = this
-        
+
         document.cookie = `currentPicker=${team}`
     } else if (action === "ban") {
         this.children[7].style.opacity = 1

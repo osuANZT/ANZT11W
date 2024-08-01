@@ -275,5 +275,10 @@ h1 {
 }
 
 /* Chat Display */
-/* Chat Display */
 #chatDisplay { height: 303px; }
+
+/* Sponsor */
+#sponsor {
+    position: absolute; left: 1885px; top: 818px;
+    height: 120px;
+}
