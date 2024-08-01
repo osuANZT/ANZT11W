@@ -140,7 +140,7 @@
 
 /* Now Playing */
 #nowPlaying {
-    position: absolute; left: 1px; bottom: 0;
+    position: absolute; left: 1px; bottom: 2px;
     width: 501px; height: 129px;
 }
 #nowPlayingBannerImage {
@@ -183,7 +183,7 @@
     font-family: "Calibri"; font-weight: bold; font-size: 18px;
 }
 #nowPlayingMod {
-    position: absolute; left: 503px; bottom: 0px;
+    position: absolute; left: 503px; bottom: 2px;
     display: flex; align-items: center;
     height: 129px;
     font-family: "Mestiza"; font-weight: 500; font-size: 23px;
@@ -218,4 +218,8 @@ p {
     font-family: "Mestiza"; font-weight: 500;
 }
 /* Set now playing mod section */
+#setNowPlayingModSection { 
+    padding-bottom: 20px;
+    border-bottom: 2px solid black; 
+}
 #currentDefaultOption { font-weight: 700; }
