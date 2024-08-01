@@ -475,6 +475,7 @@ function showDefaultNowPlayingModText() {
 // Set now playing side
 const nowPlayingEl = document.getElementById("nowPlaying")
 const nowPlayingModEl = document.getElementById("nowPlayingMod")
+const sponsorEl = document.getElementById("sponsor")
 let setNowPlayingSideOverride = false
 function setNowPlayingSide(side) {
     setNowPlayingSideOverride = true
@@ -489,11 +490,15 @@ function setNowPlayingSide(side) {
         nowPlayingEl.style.right = "unset"
         nowPlayingModEl.style.left = "503px"
         nowPlayingModEl.style.right = "unset"
+        sponsorEl.style.left = "10px"
+        sponsorEl.style.right = "unset"
     } else if (side === "right") {
         nowPlayingEl.style.left = "unset"
         nowPlayingEl.style.right = "1px"
         nowPlayingModEl.style.left = "unset"
         nowPlayingModEl.style.right = "503px"
+        sponsorEl.style.left = "unset"
+        sponsorEl.style.right = "10px"
     }
 }
 
@@ -512,18 +517,20 @@ function getCookie(cname) {
 setTimeout(() => {
     let currentSide = getCookie("currentPicker")
     if (!setNowPlayingSideOverride) {
-        if (currentSide === "left") {
+        if (side === "left") {
             nowPlayingEl.style.left = "1px"
             nowPlayingEl.style.right = "unset"
             nowPlayingModEl.style.left = "503px"
             nowPlayingModEl.style.right = "unset"
-            nowPlayingWarmupTextEl.style.marginLeft = "15px"
-            nowPlayingWarmupTextEl.style.marginLeft = "15px"
-        } else if (currentSide === "right") {
+            sponsorEl.style.left = "10px"
+            sponsorEl.style.right = "unset"
+        } else if (side === "right") {
             nowPlayingEl.style.left = "unset"
             nowPlayingEl.style.right = "1px"
             nowPlayingModEl.style.left = "unset"
             nowPlayingModEl.style.right = "503px"
+            sponsorEl.style.left = "unset"
+            sponsorEl.style.right = "10px"
         }
     }
 }, 500)

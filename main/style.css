@@ -223,3 +223,9 @@ p {
     border-bottom: 2px solid black; 
 }
 #currentDefaultOption { font-weight: 700; }
+
+/* Sponsor */
+#sponsor {
+    position: absolute; left: 10px; top: 1250px;
+    height: 50px;
+}
