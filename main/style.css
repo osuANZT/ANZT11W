@@ -157,7 +157,7 @@
     font-family: "Mestiza"; font-weight: 500; font-size: 21px;
     letter-spacing: 0.5px;
     text-overflow: ellipsis;
-    text-overflow: nowrap;
+    text-wrap: nowrap;
     overflow: hidden;
 }
 #nowPlayingDifficultyName {
@@ -165,7 +165,7 @@
     width: 370px;
     font-family: "Afacad"; font-size: 19px;
     text-overflow: ellipsis;
-    text-overflow: nowrap;
+    text-wrap: nowrap;
     overflow: hidden;
 }
 #nowPlayingStatsCSAROD {
@@ -189,10 +189,7 @@
     font-family: "Mestiza"; font-weight: 500; font-size: 23px;
 }
 #nowPlayingModImage { display: none; }
-#nowPlayingWarmupText { 
-    margin-left: 15px;
-    margin-bottom: 7px;
-}
+#nowPlayingWarmupText { margin: 0px 15px 7px 15px; }
 
 /* Sidebar */
 #sideBar {

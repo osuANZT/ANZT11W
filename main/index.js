@@ -1,5 +1,3 @@
-const countUp = require("../_shared/deps/countUp")
-
 // Round name
 const roundNameEl = document.getElementById("roundName")
 
@@ -8,7 +6,7 @@ let allBeatmaps
 async function getMappool() {
     const response = await fetch("../_data/beatmaps.json")
     const responseJson = await response.json()
-    allBeatmaps = responseJson
+    allBeatmaps = responseJson.beatmaps
 
     roundNameEl.innerText = responseJson.roundName
 }
@@ -96,10 +94,10 @@ const movingScoreBarBlueEl = document.getElementById("movingScoreBarBlue")
 const countUps = {
     redUnstableRate: new CountUp(redUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
     blueUnstableRate: new CountUp(blueUnstableRateEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
-    playingScoreRed: new CountUp(currentPlayingScoreRedEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
-    playingScoreRedDelta: new CountUp(currentPlayingScoreRedDifferenceEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
-    playingScoreBlue: new CountUp(currentPlayingScoreBlueEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
-    playingScoreBlueDelta: new CountUp(currentPlayingScoreBlueDifferenceEl, 0, 0, 2, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreRed: new CountUp(currentPlayingScoreRedEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreRedDelta: new CountUp(currentPlayingScoreRedDifferenceEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreBlue: new CountUp(currentPlayingScoreBlueEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
+    playingScoreBlueDelta: new CountUp(currentPlayingScoreBlueDifferenceEl, 0, 0, 0, 0.2, { useEasing: true, useGrouping: true, separator: ",", decimal: "." }),
 }
 
 // Chat Display
@@ -245,9 +243,11 @@ socket.onmessage = event => {
         if (isScoreVisible) {
             movingScoreBarsEl.style.opacity = 1
             currentScoreContainersEl.style.opacity = 1
+            chatDisplay.style.opacity = 0
         } else {
             movingScoreBarsEl.style.opacity = 0
             currentScoreContainersEl.style.opacity = 0
+            chatDisplay.style.opacity = 1
         }
     }
 
@@ -369,7 +369,7 @@ socket.onmessage = event => {
     }
 
     // Beatmap information
-    if ((nowPlayingID !== data.menu.bm.id || nowPlayingMd5 !== data.menu.bm.md5) && nowPlayingID !== 0) {
+    if ((nowPlayingID !== data.menu.bm.id || nowPlayingMd5 !== data.menu.bm.md5) && nowPlayingID !== 0 && allBeatmaps) {
         nowPlayingID = data.menu.bm.id
         nowPlayingMd5 = data.menu.bm.md5
         foundMapInMappool = false
@@ -377,7 +377,7 @@ socket.onmessage = event => {
         currentOverrideModText = false
         setNowPlayingSideOverride = false
 
-        nowPlayingBannerImageEl.style.backgroundImage = `https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg`
+        nowPlayingBannerImageEl.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg")`
         nowPlayingArtistSongNameEl.innerText = `${data.menu.bm.metadata.artist} - ${data.menu.bm.metadata.title}`
         nowPlayingDifficultyNameEl.innerText = `[${data.menu.bm.metadata.difficulty}]`
         nowPlayingMapperEl.innerText = data.menu.bm.metadata.mapper
@@ -389,8 +389,8 @@ socket.onmessage = event => {
             nowPlayingStatsCSEl = Math.round(parseFloat(currentMap.cs) * 10) / 10
             nowPlayingStatsAREl = Math.round(parseFloat(currentMap.ar) * 10) / 10
             nowPlayingStatsODEl = Math.round(parseFloat(currentMap.od) * 10) / 10
-            nowPlayingStatsSREl = Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100
-            nowPlayingStatsBPMEl = Math.round(parseFloat(currentMap.bpm) * 10) / 10
+            nowPlayingStatsSREl = `${Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100}*`
+            nowPlayingStatsBPMEl = `${Math.round(parseFloat(currentMap.bpm) * 10) / 10}bpm`
             displayLength(parseInt(currentMap.songLength))
             // Panel Image
             nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/${currentMap.mod}panel.png`)
@@ -401,15 +401,10 @@ socket.onmessage = event => {
             currentlyShowingMod = true
         }  else {
             // Panel Image
-            nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/NManel.png`)
+            nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/NMPanel.png`)
 
             // Mod Image
-            nowPlayingModImageEl.style.display = "none"
-            if (warmupMode) nowPlayingWarmupTextEl.innerText = "warmup"
-            else nowPlayingWarmupTextEl.innerText = ""
-            nowPlayingWarmupTextEl.style.display = "block"
-
-            setDefualtNowPlayingModText()
+            showDefaultNowPlayingModText()
         }
     }
 
@@ -417,16 +412,16 @@ socket.onmessage = event => {
         nowPlayingStatsCSEl.innerText = data.menu.bm.stats.CS
         nowPlayingStatsAREl.innerText = data.menu.bm.stats.AR
         nowPlayingStatsODEl.innerText = data.menu.bm.stats.OD
-        nowPlayingStatsSREl.innerText = data.menu.bm.stats.fullSR
-        nowPlayingStatsBPMEl.innerText = data.menu.bm.stats.BPM.common
-        nowPlayingStatsLENEl.innerText = displayLength(parseInt(data.menu.bm.time.full / 1000))
+        nowPlayingStatsSREl.innerText = `${data.menu.bm.stats.fullSR}*`
+        nowPlayingStatsBPMEl.innerText = `${data.menu.bm.stats.BPM.common}bpm`
+        displayLength(parseInt(data.menu.bm.time.full / 1000))
     }
 }
 
 function displayLength(songLengthSeconds) {
     // Length
     let totalSeconds = songLengthSeconds
-    const minutes = Math.floor(totalSeconds / 60)
+    const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0')
     const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, '0')
     nowPlayingStatsLENEl.innerText = `${minutes}:${seconds}`
 }
@@ -437,7 +432,7 @@ function displayLength(songLengthSeconds) {
 let currentlyShowingMod = false
 function setCurrentModOfMap() {
     // Find map
-    let currentMap = findMapInMapool(nowplayingID)
+    let currentMap = findMapInMapool(nowPlayingID)
     if (currentMap) {
         nowPlayingModImageEl.setAttribute("src", `${currentMap.mod}${(currentMap.mod !== "TB")? currentMap.order : ""}`)
         nowPlayingWarmupTextEl.style.display = "none"
@@ -522,6 +517,8 @@ setTimeout(() => {
             nowPlayingEl.style.right = "unset"
             nowPlayingModEl.style.left = "503px"
             nowPlayingModEl.style.right = "unset"
+            nowPlayingWarmupTextEl.style.marginLeft = "15px"
+            nowPlayingWarmupTextEl.style.marginLeft = "15px"
         } else if (currentSide === "right") {
             nowPlayingEl.style.left = "unset"
             nowPlayingEl.style.right = "1px"
