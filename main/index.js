@@ -255,7 +255,7 @@ socket.onmessage = event => {
     if (isScoreVisible) {
         // Scores
         currentScoreRed = data.tourney.manager.gameplay.score.left
-        currentScoreBlue = data.tourney.manager.gameplay.score.left
+        currentScoreBlue = data.tourney.manager.gameplay.score.right
         currentScoreDelta = Math.abs(currentScoreRed - currentScoreBlue)
 
         // Update scores
@@ -265,12 +265,12 @@ socket.onmessage = event => {
         countUps.playingScoreBlueDelta.update(currentScoreDelta)
 
         // Bar percentage
-        let movingScoreBarDifferencePercent = Math.min(currentScoreDelta / 1000000, 1)
+        let movingScoreBarDifferencePercent = Math.min(currentScoreDelta / 300000, 1)
         let movingScoreBarRectangleWidth = Math.min(Math.pow(movingScoreBarDifferencePercent, 0.5)* 470, 470)
 
         if (currentScoreRed > currentScoreBlue) {
             // Set visibility and classes
-            if (!currentPlayingScoreRedEl.classList.has("currentPlayingScoreLead")) {
+            if (!currentPlayingScoreRedEl.classList.contains("currentPlayingScoreLead")) {
                 currentPlayingScoreRedEl.classList.add("currentPlayingScoreLead")
             }
             currentPlayingScoreRedDifferenceEl.style.display = "block"
@@ -306,7 +306,7 @@ socket.onmessage = event => {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
             currentPlayingScoreRedDifferenceEl.style.display = "block"
-            if (!currentPlayingScoreBlueEl.classList.has("currentPlayingScoreLead")) {
+            if (!currentPlayingScoreBlueEl.classList.contains("currentPlayingScoreLead")) {
                 currentPlayingScoreBlueEl.classList.add("currentPlayingScoreLead")
             }
             currentPlayingScoreBlueDifferenceEl.style.display = "none"
