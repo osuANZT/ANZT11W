@@ -280,14 +280,6 @@ socket.onmessage = event => {
             // Width of moving score bar
             movingScoreBarRedEl.style.width = `${movingScoreBarRectangleWidth}px`
             movingScoreBarBlueEl.style.width = "0px"
-
-            // Set position of elements
-            if (currentScoreRedEl.getBoundingClientRect().width + 35 < movingScoreBarRectangleWidth) {
-                currentScoreRedEl.style.right = `${1280 + movingScoreBarRectangleWidth - currentScoreRedEl.getBoundingClientRect().width}px`
-            } else {
-                currentScoreRedEl.style.right = "1315px"
-            }
-            currentScoreBlueEl.style.left = "1315px"
         } else if (currentScoreRed === currentScoreBlue) {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
@@ -299,29 +291,18 @@ socket.onmessage = event => {
             movingScoreBarRedEl.style.width = `0px`
             movingScoreBarBlueEl.style.width = "0px"
 
-            // Set position of elements
-            currentScoreRedEl.style.right = "1315px"
-            currentScoreBlueEl.style.left = "1315px"
         } else if (currentScoreRed < currentScoreBlue) {
             // Set visibility and classes
             currentPlayingScoreRedEl.classList.remove("currentPlayingScoreLead")
-            currentPlayingScoreRedDifferenceEl.style.display = "block"
+            currentPlayingScoreRedDifferenceEl.style.display = "none"
             if (!currentPlayingScoreBlueEl.classList.contains("currentPlayingScoreLead")) {
                 currentPlayingScoreBlueEl.classList.add("currentPlayingScoreLead")
             }
-            currentPlayingScoreBlueDifferenceEl.style.display = "none"
+            currentPlayingScoreBlueDifferenceEl.style.display = "block"
 
             // Width of moving score bar
             movingScoreBarRedEl.style.width = "0px"
             movingScoreBarBlueEl.style.width = `${movingScoreBarRectangleWidth}px`
-
-            // Set position of elements
-            currentScoreRedEl.style.right = "1315px"
-            if (currentScoreBlueEl.getBoundingClientRect().width + 35 < movingScoreBarRectangleWidth) {
-                currentScoreBlueEl.style.left = `${1280 + movingScoreBarRectangleWidth - currentScoreBlueEl.getBoundingClientRect().width}px`
-            } else {
-                currentScoreBlueEl.style.left = "1315px"
-            }
         }
     }
 

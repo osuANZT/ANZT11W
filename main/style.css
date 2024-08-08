@@ -120,6 +120,7 @@
     position: absolute; top: 1216px;
     font-family: "Solway"; font-weight: 500; font-size: 43px;
     transition: 200ms ease-in-out;
+    font-variant-numeric: tabular-nums lining-nums;
 }
 .currentPlayingScoreLead { font-size: 48px; }
 #currentScoreRed { right: 1315px; }
@@ -128,7 +129,10 @@
 #currentPlayingScoreRed { color: #ff3030; }
 #currentPlayingScoreBlue { color: #3074ff; }
 /* Playing Score Difference */
-.currentPlayingScoreDifference { font-size: 27px; }
+.currentPlayingScoreDifference { 
+    font-size: 27px; 
+    font-variant-numeric: tabular-nums lining-nums;
+}
 #currentPlayingScoreRedDifference { text-align: right; }
 
 /* Chat Display */

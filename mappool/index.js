@@ -272,6 +272,7 @@ socket.onmessage = event => {
                 if (nextAutoPicker === "Red") {
                     element.click()
                     element.setAttribute("data-is-autopicked", "true")
+                    setNextAutoPicker("Blue")
                 } else if (nextAutoPicker === "Blue") {
                     const event = new MouseEvent('mousedown', {
                         bubbles: true,
@@ -281,6 +282,7 @@ socket.onmessage = event => {
                     })
                     element.dispatchEvent(event)
                     element.setAttribute("data-is-autopicked", "true")
+                    setNextAutoPicker("Red")
                 }
             }
         }
@@ -302,7 +304,7 @@ socket.onmessage = event => {
             if (currentScoreLeft > currentScoreRight) {
                 currentPickTile.children[10].style.opacity = 1
                 currentPickTile.children[10].setAttribute("src", "static/players/redWon.png")
-            } else if (currentScoreRight < currentScoreLeft) {
+            } else if (currentScoreRight > currentScoreLeft) {
                 currentPickTile.children[10].style.opacity = 1
                 currentPickTile.children[10].setAttribute("src", "static/players/blueWon.png")
             }
