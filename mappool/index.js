@@ -269,19 +269,18 @@ socket.onmessage = event => {
 
             // Check if autopicked already
             if (!element.hasAttribute("data-is-autopicked") || element.getAttribute("data-is-autopicked") !== "true") {
+                const event = new MouseEvent('mousedown', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window,
+                    button: (nextAutoPicker === "Red")? 0 : 2
+                })
+                element.dispatchEvent(event)
+                element.setAttribute("data-is-autopicked", "true")
+
                 if (nextAutoPicker === "Red") {
-                    element.click()
-                    element.setAttribute("data-is-autopicked", "true")
                     setNextAutoPicker("Blue")
                 } else if (nextAutoPicker === "Blue") {
-                    const event = new MouseEvent('mousedown', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window,
-                        button: 2
-                    })
-                    element.dispatchEvent(event)
-                    element.setAttribute("data-is-autopicked", "true")
                     setNextAutoPicker("Red")
                 }
             }
@@ -418,7 +417,7 @@ function mapClickEvent() {
 
 // Set next auto picker
 const nextAutoPickerEl = document.getElementById("nextAutoPicker")
-let nextAutoPicker
+let nextAutoPicker = "Red"
 function setNextAutoPicker(colour) {
     nextAutoPickerEl.innerText = colour
     nextAutoPicker = colour
