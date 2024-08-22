@@ -79,6 +79,7 @@
 .starsContainer {
     position: absolute; top: 129px;
     display: flex;
+    transition: 500ms ease-in-out;
 }
 #redStarsContainer { left: var(--starsContainerLeftRight); }
 #blueStarsContainer { 

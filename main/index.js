@@ -51,6 +51,9 @@ const redStarsContainerEl = document.getElementById("redStarsContainer")
 const blueStarsContainerEl = document.getElementById("blueStarsContainer")
 let currentBestOf = 0, currentFirstTo = 0, currentRedStarsCount = 0, currentBlueStarsCount = 0
 
+// Stars visible
+let starsVisible
+
 // IPC State
 let currentIPCState
 
@@ -148,6 +151,19 @@ socket.onmessage = event => {
             currentBluePlayerId = playerDetails.playerId
             bluePlayerSeedEl.innerText = playerDetails.playerSeed
             blueProfilePictureEl.style.backgroundImage = `url("https://a.ppy.sh/${currentBluePlayerId}")`
+        }
+    }
+
+    // Star visibility
+    if (starsVisible !== data.tourney.manager.bools.starsVisible) {
+        starsVisible = data.tourney.manager.bools.starsVisible
+
+        if (starsVisible) {
+            redStarsContainerEl.style.opacity = 1
+            blueStarsContainerEl.style.opacity = 1
+        } else {
+            redStarsContainerEl.style.opacity = 0
+            blueStarsContainerEl.style.opacity = 0
         }
     }
 
@@ -494,24 +510,3 @@ function getCookie(cname) {
     }
     return "";
 }
-
-setTimeout(() => {
-    let currentSide = getCookie("currentPicker")
-    if (!setNowPlayingSideOverride) {
-        if (side === "left") {
-            nowPlayingEl.style.left = "1px"
-            nowPlayingEl.style.right = "unset"
-            nowPlayingModEl.style.left = "503px"
-            nowPlayingModEl.style.right = "unset"
-            sponsorEl.style.left = "10px"
-            sponsorEl.style.right = "unset"
-        } else if (side === "right") {
-            nowPlayingEl.style.left = "unset"
-            nowPlayingEl.style.right = "1px"
-            nowPlayingModEl.style.left = "unset"
-            nowPlayingModEl.style.right = "503px"
-            sponsorEl.style.left = "unset"
-            sponsorEl.style.right = "10px"
-        }
-    }
-}, 500)
