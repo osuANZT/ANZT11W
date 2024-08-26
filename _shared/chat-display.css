@@ -30,5 +30,5 @@
 .chatDisplayName { font-weight: 700; }
 .left { color: var(--redPlayerColour) }
 .right { color: var(--bluePlayerColour) }
-.unknown { color: #6f00ff }
+.unknown { color: #C05E59 }
 .bot { color: rgb(8, 0, 255) }

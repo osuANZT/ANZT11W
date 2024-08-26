@@ -372,7 +372,6 @@ socket.onmessage = event => {
         foundMapInMappool = false
         currentlyShowingMod = false
         currentOverrideModText = false
-        setNowPlayingSideOverride = false
 
         nowPlayingBannerImageEl.style.backgroundImage = `url("https://assets.ppy.sh/beatmaps/${data.menu.bm.set}/covers/cover.jpg")`
         nowPlayingArtistSongNameEl.innerText = `${data.menu.bm.metadata.artist} - ${data.menu.bm.metadata.title}`
@@ -383,11 +382,11 @@ socket.onmessage = event => {
         if (currentMap) {
             foundMapInMappool = true
             // Other stats
-            nowPlayingStatsCSEl = Math.round(parseFloat(currentMap.cs) * 10) / 10
-            nowPlayingStatsAREl = Math.round(parseFloat(currentMap.ar) * 10) / 10
-            nowPlayingStatsODEl = Math.round(parseFloat(currentMap.od) * 10) / 10
-            nowPlayingStatsSREl = `${Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100}*`
-            nowPlayingStatsBPMEl = `${Math.round(parseFloat(currentMap.bpm) * 10) / 10}bpm`
+            nowPlayingStatsCSEl.innerText = Math.round(parseFloat(currentMap.cs) * 10) / 10
+            nowPlayingStatsAREl.innerText = Math.round(parseFloat(currentMap.ar) * 10) / 10
+            nowPlayingStatsODEl.innerText = Math.round(parseFloat(currentMap.od) * 10) / 10
+            nowPlayingStatsSREl.innerText = `${Math.round(parseFloat(currentMap.difficultyrating) * 100) / 100}*`
+            nowPlayingStatsBPMEl.innerText = `${Math.round(parseFloat(currentMap.bpm) * 10) / 10}bpm`
             displayLength(parseInt(currentMap.songLength))
             // Panel Image
             nowPlayingPanelImageEl.setAttribute("src", `../_shared/panels/${currentMap.mod}panel.png`)
@@ -431,7 +430,8 @@ function setCurrentModOfMap() {
     // Find map
     let currentMap = findMapInMapool(nowPlayingID)
     if (currentMap) {
-        nowPlayingModImageEl.setAttribute("src", `${currentMap.mod}${(currentMap.mod !== "TB")? currentMap.order : ""}`)
+        nowPlayingModImageEl.setAttribute("src", `../_shared/match-history/${currentMap.mod}${(currentMap.mod !== "TB")? currentMap.order : ""}.png`)
+        nowPlayingModImageEl.style.display = "block"
         nowPlayingWarmupTextEl.style.display = "none"
         currentlyShowingMod = true
     } else {
@@ -466,36 +466,6 @@ function showDefaultNowPlayingModText() {
         nowPlayingWarmupTextEl.innerText = ""
     } else if (setCurrentDefaultNowPlayingModText === "warmup") {
         nowPlayingWarmupTextEl.innerText = setCurrentDefaultNowPlayingModText
-    }
-}
-
-// Set now playing side
-const nowPlayingEl = document.getElementById("nowPlaying")
-const nowPlayingModEl = document.getElementById("nowPlayingMod")
-const sponsorEl = document.getElementById("sponsor")
-let setNowPlayingSideOverride = false
-function setNowPlayingSide(side) {
-    setNowPlayingSideOverride = true
-    if (side === "default") {
-        let currentSide = getCookie("currentPicker")
-        if (currentSide === "right") side = "right"
-        else side = "left"
-    }
-
-    if (side === "left") {
-        nowPlayingEl.style.left = "1px"
-        nowPlayingEl.style.right = "unset"
-        nowPlayingModEl.style.left = "503px"
-        nowPlayingModEl.style.right = "unset"
-        sponsorEl.style.left = "10px"
-        sponsorEl.style.right = "unset"
-    } else if (side === "right") {
-        nowPlayingEl.style.left = "unset"
-        nowPlayingEl.style.right = "1px"
-        nowPlayingModEl.style.left = "unset"
-        nowPlayingModEl.style.right = "503px"
-        sponsorEl.style.left = "unset"
-        sponsorEl.style.right = "10px"
     }
 }
 
