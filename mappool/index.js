@@ -201,7 +201,6 @@ let chatLen = 0
 
 socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    console.log(data)
 
     // Set player names and profile pictures
     if (currentRedPlayerName !== data.tourney.manager.teamName.left && allPlayers) {
@@ -469,8 +468,10 @@ async function getAndAppendMatchHistory() {
     const fragment = document.createDocumentFragment()
     for (numberOfMapsCounted; numberOfMapsCounted < responseJson.games.length; numberOfMapsCounted++) {
         const currentMap = findMapInMapool(parseInt(responseJson.games[numberOfMapsCounted].beatmap_id))
+
+        if (responseJson.games[numberOfMapsCounted].scores.length !== 2) continue
+        
         if (currentMap) {
-            
             // Create elements
             // Panel
             const matchHistoryPanel = document.createElement("div")
@@ -515,6 +516,8 @@ async function getAndAppendMatchHistory() {
 
             // Create 1st score object
             function createScoreElement(index) {
+                console.log(index)
+                console.log(scoreObjects)
                 const scoreElement = document.createElement("div")
                 scoreElement.classList.add("matchHistoryPanelScore")
                 if (index === 0) scoreElement.classList.add("matchHistoryPanelWinnerScore")
